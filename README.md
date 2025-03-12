@@ -28,6 +28,6 @@ bun dev
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-When developing locally, you can route the requests from the mobile app to your local machine by opening an ngrok endpoint using `ngrok http 3000` and replace `endpoint: "https://playground.self.xyz/api/verify"` in `app/page.tsx` with the newly generated url.
+When developing locally, you can route the requests from the mobile app to your local machine by opening an ngrok endpoint using `ngrok http 3000` and replace `endpoint: "https://playground.self.xyz/api/verify"` in `app/page.tsx` with the newly generated url, that should look something like `endpoint: "https://198c-166-144-250-126.ngrok-free.app/api/verify"`.
 
 When deploying to Vercel, update it to match the URL of your Vercel deployment.
