@@ -140,6 +140,7 @@ function Playground() {
         appName: "Self Playground",
         scope: "self-playground",
         endpoint: "https://playground.self.xyz/api/verify",
+        // endpoint: "https://198c-166-144-250-126.ngrok-free.app/api/verify",
         logoBase64: logo,
         userId,
         disclosures: {
@@ -169,7 +170,7 @@ function Playground() {
                 </div>
                 <div className="flex items-center space-x-4">
                     <a 
-                        href="https://github.com/zk-passport/openpassport" 
+                        href="https://github.com/selfxyz/self"
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="bg-gray-900 text-white px-4 py-2 rounded-md flex items-center hover:bg-gray-800 transition-colors"
