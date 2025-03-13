@@ -70,6 +70,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const configuredVerifier = new SelfBackendVerifier(
                 'https://forno.celo.org',
                 "self-playground",
+                "uuid",
+                true
             );
             
             if (minimumAge !== undefined) {

@@ -139,8 +139,8 @@ function Playground() {
     const selfApp = new SelfAppBuilder({
         appName: "Self Playground",
         scope: "self-playground",
-        endpoint: "https://playground.self.xyz/api/verify",
-        // endpoint: "https://198c-166-144-250-126.ngrok-free.app/api/verify",
+        endpoint: "https://playground.staging.self.xyz/api/verify",
+        // endpoint: "https://0ee3-37-168-21-99.ngrok-free.app/api/verify",
         logoBase64: logo,
         userId,
         disclosures: {
