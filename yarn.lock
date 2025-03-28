@@ -637,9 +637,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@selfxyz/core@npm:^0.0.7":
-  version: 0.0.7
-  resolution: "@selfxyz/core@npm:0.0.7"
+"@selfxyz/core@npm:^0.0.15":
+  version: 0.0.15
+  resolution: "@selfxyz/core@npm:0.0.15"
   dependencies:
     "@types/react": "npm:^18.3.4"
     "@types/react-dom": "npm:^18.3.0"
@@ -647,16 +647,17 @@ __metadata:
     ethers: "npm:^6.13.5"
     next: "npm:^14.2.8"
     snarkjs: "npm:^0.7.4"
+    uuid: "npm:^11.1.0"
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10c0/40397ecd762924621a786fd9902b534adc9ed887fdf2b2576ce0cb157993a5e580807c2c531978409b8593d32ede96461c7dbc289e207adc8fb4863d0e1be183
+  checksum: 10c0/2d411d8ac10420fa204f23561d3086d3b5bb50fa6f5403dd0a2e72e00451f15fc3d22b9fe39c97709116703f9d4ab90b750e3af62ee03cd98ac6e0a84a9dbebf
   languageName: node
   linkType: hard
 
-"@selfxyz/qrcode@npm:^0.0.10":
-  version: 0.0.10
-  resolution: "@selfxyz/qrcode@npm:0.0.10"
+"@selfxyz/qrcode@npm:^0.0.15":
+  version: 0.0.15
+  resolution: "@selfxyz/qrcode@npm:0.0.15"
   dependencies:
     "@types/react": "npm:^18.3.4"
     "@types/react-dom": "npm:^18.3.0"
@@ -673,7 +674,7 @@ __metadata:
     lottie-react: ^2.4.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10c0/d7df2e73a803ae11eb3373cec86b524f5cdaaaf123a4736031e3f81159f35d637734a7b12047c37c78486e3f2eb03cea2859b2ab78f8b3f4d16a46cf76198018
+  checksum: 10c0/9e9d16643073311ba283d3f76d1b8d81854c41a8b656bee6413cc5d7e5b44fd17be6f2ca1e35de23ebed65fcff4a03b245f01d7527761058e835836e96b1a696
   languageName: node
   linkType: hard
 
@@ -3854,8 +3855,8 @@ __metadata:
   resolution: "playground@workspace:."
   dependencies:
     "@eslint/eslintrc": "npm:^3"
-    "@selfxyz/core": "npm:^0.0.7"
-    "@selfxyz/qrcode": "npm:^0.0.10"
+    "@selfxyz/core": "npm:^0.0.15"
+    "@selfxyz/qrcode": "npm:^0.0.15"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^19.0.4"
@@ -5132,6 +5133,15 @@ __metadata:
   bin:
     uuid: dist/bin/uuid
   checksum: 10c0/eab18c27fe4ab9fb9709a5d5f40119b45f2ec8314f8d4cf12ce27e4c6f4ffa4a6321dc7db6c515068fa373c075b49691ba969f0010bf37f44c37ca40cd6bf7fe
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "uuid@npm:11.1.0"
+  bin:
+    uuid: dist/esm/bin/uuid
+  checksum: 10c0/34aa51b9874ae398c2b799c88a127701408cd581ee89ec3baa53509dd8728cbb25826f2a038f9465f8b7be446f0fbf11558862965b18d21c993684297628d4d3
   languageName: node
   linkType: hard
 

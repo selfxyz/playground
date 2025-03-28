@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import SelfQRcodeWrapper, { SelfApp, SelfAppBuilder } from '@selfxyz/qrcode';
 import { v4 as uuidv4 } from 'uuid';
-import { logo } from './content/playgroundAppLogo';
 import { countryCodes } from '@selfxyz/core';
 
 function Playground() {
@@ -141,7 +140,7 @@ function Playground() {
         scope: "self-playground",
         endpoint: "https://playground.staging.self.xyz/api/verify",
         // endpoint: "https://0ee3-37-168-21-99.ngrok-free.app/api/verify",
-        logoBase64: logo,
+        logoBase64: "https://i.imgur.com/Rz8B3s7.png",
         userId,
         disclosures: {
             ...disclosures,
