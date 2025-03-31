@@ -637,33 +637,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@selfxyz/core@npm:^0.0.15":
-  version: 0.0.15
-  resolution: "@selfxyz/core@npm:0.0.15"
+"@selfxyz/core@npm:^0.0.18":
+  version: 0.0.18
+  resolution: "@selfxyz/core@npm:0.0.18"
   dependencies:
     "@types/react": "npm:^18.3.4"
     "@types/react-dom": "npm:^18.3.0"
     "@types/uuid": "npm:^10.0.0"
     ethers: "npm:^6.13.5"
+    js-sha1: "npm:^0.7.0"
+    js-sha256: "npm:^0.11.0"
+    js-sha512: "npm:^0.9.0"
     next: "npm:^14.2.8"
+    node-forge: "npm:^1.3.1"
+    poseidon-lite: "npm:^0.3.0"
     snarkjs: "npm:^0.7.4"
     uuid: "npm:^11.1.0"
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10c0/2d411d8ac10420fa204f23561d3086d3b5bb50fa6f5403dd0a2e72e00451f15fc3d22b9fe39c97709116703f9d4ab90b750e3af62ee03cd98ac6e0a84a9dbebf
+  checksum: 10c0/a4c4cd96129b498c51eb818cf03b971f30ed87d74b6e6ccb50d5f1fab9cbafc81c274be8bb7bd674b6c4321cefaa42a44a6440de84731c01a9fa05492f3e78c6
   languageName: node
   linkType: hard
 
-"@selfxyz/qrcode@npm:^0.0.15":
-  version: 0.0.15
-  resolution: "@selfxyz/qrcode@npm:0.0.15"
+"@selfxyz/qrcode@npm:^0.0.17":
+  version: 0.0.17
+  resolution: "@selfxyz/qrcode@npm:0.0.17"
   dependencies:
     "@types/react": "npm:^18.3.4"
     "@types/react-dom": "npm:^18.3.0"
     "@types/uuid": "npm:^10.0.0"
+    js-sha1: "npm:^0.7.0"
+    js-sha256: "npm:^0.11.0"
+    js-sha512: "npm:^0.9.0"
     lottie-react: "npm:^2.4.0"
     next: "npm:^14.2.8"
+    node-forge: "npm:^1.3.1"
+    poseidon-lite: "npm:^0.3.0"
     qrcode.react: "npm:^4.1.0"
     react: "npm:^18.0.0"
     react-dom: "npm:^18.0.0"
@@ -674,7 +684,7 @@ __metadata:
     lottie-react: ^2.4.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10c0/9e9d16643073311ba283d3f76d1b8d81854c41a8b656bee6413cc5d7e5b44fd17be6f2ca1e35de23ebed65fcff4a03b245f01d7527761058e835836e96b1a696
+  checksum: 10c0/23a11f7cda8e83cf739e35eb06d7ad983aefd30e1fd8da5da3c6b9c5413fb393387ab710199bf7b6581d221616f13f4be6fa09327c27fc089c665aa245dbdba9
   languageName: node
   linkType: hard
 
@@ -3042,10 +3052,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-sha1@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "js-sha1@npm:0.7.0"
+  checksum: 10c0/f6ae6d7a3d7e8772fac8a82b2f002c282bef0b75a42ab36b4cafd99c7e02fb4654eb51c444dd026b24ff9fef5d762239aeed42a88fa44ca4b67a0a90ebce059e
+  languageName: node
+  linkType: hard
+
+"js-sha256@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "js-sha256@npm:0.11.0"
+  checksum: 10c0/90980fe01ca01fbd166751fb16c4caa09c1ab997e8bf77c0764cc05c772c6044946f4c1b3bad266ce78357280d2131d3dc0cf2dd7646e78272996bd4d590aa4f
+  languageName: node
+  linkType: hard
+
 "js-sha3@npm:^0.8.0":
   version: 0.8.0
   resolution: "js-sha3@npm:0.8.0"
   checksum: 10c0/43a21dc7967c871bd2c46cb1c2ae97441a97169f324e509f382d43330d8f75cf2c96dba7c806ab08a425765a9c847efdd4bffbac2d99c3a4f3de6c0218f40533
+  languageName: node
+  linkType: hard
+
+"js-sha512@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "js-sha512@npm:0.9.0"
+  checksum: 10c0/00b85acae8ffde790a703a5424ae03c97c623b008135388396db1bfb1ac0ebf7356c5ff0d5a17630b5ae25ac09fe35eed2abc66bc276e9dc86fcb3cabcfcdfa2
   languageName: node
   linkType: hard
 
@@ -3578,6 +3609,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-forge@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "node-forge@npm:1.3.1"
+  checksum: 10c0/e882819b251a4321f9fc1d67c85d1501d3004b4ee889af822fd07f64de3d1a8e272ff00b689570af0465d65d6bf5074df9c76e900e0aff23e60b847f2a46fbe8
+  languageName: node
+  linkType: hard
+
 "node-gyp@npm:latest":
   version: 11.1.0
   resolution: "node-gyp@npm:11.1.0"
@@ -3855,8 +3893,8 @@ __metadata:
   resolution: "playground@workspace:."
   dependencies:
     "@eslint/eslintrc": "npm:^3"
-    "@selfxyz/core": "npm:^0.0.15"
-    "@selfxyz/qrcode": "npm:^0.0.15"
+    "@selfxyz/core": "npm:^0.0.18"
+    "@selfxyz/qrcode": "npm:^0.0.17"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^19.0.4"
@@ -3871,6 +3909,13 @@ __metadata:
     typescript: "npm:^5.7.3"
   languageName: unknown
   linkType: soft
+
+"poseidon-lite@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "poseidon-lite@npm:0.3.0"
+  checksum: 10c0/03494ea69be0dc3ced055b7f1505ff73848002c68332d52a5cf5f00d1a657693317e1ffc790b84ccaf9a0f5f61bf05e1a453eab60c385c98701a6580edead49c
+  languageName: node
+  linkType: hard
 
 "possible-typed-array-names@npm:^1.0.0":
   version: 1.1.0

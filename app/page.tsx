@@ -24,7 +24,14 @@ function Playground() {
         expiry_date: false,
         // Custom checks
         minimumAge: 18,
-        excludedCountries: ["IRN", "IRQ", "PRK", "RUS", "SYR", "VEN"],
+        excludedCountries: [
+            "IRN", 
+            "IRQ", 
+            "PRK", 
+            "RUS", 
+            "SYR", 
+            "VEN"
+        ],
         ofac: true,
     });
 
@@ -139,7 +146,7 @@ function Playground() {
         appName: "Self Playground",
         scope: "self-playground",
         endpoint: "https://playground.staging.self.xyz/api/verify",
-        // endpoint: "https://0ee3-37-168-21-99.ngrok-free.app/api/verify",
+        // endpoint: "https://b947-2400-4150-8300-2d00-f83f-9c52-f581-17b9.ngrok-free.app/api/verify",
         logoBase64: "https://i.imgur.com/Rz8B3s7.png",
         userId,
         disclosures: {
