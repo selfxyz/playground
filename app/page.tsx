@@ -146,7 +146,7 @@ function Playground() {
         appName: "Self Playground",
         scope: "self-playground",
         endpoint: "https://playground.staging.self.xyz/api/verify",
-        // endpoint: "https://b947-2400-4150-8300-2d00-f83f-9c52-f581-17b9.ngrok-free.app/api/verify",
+        // endpoint: "https://03bf-2400-4150-8300-2d00-f83f-9c52-f581-17b9.ngrok-free.app/api/verify",
         logoBase64: "https://i.imgur.com/Rz8B3s7.png",
         userId,
         disclosures: {

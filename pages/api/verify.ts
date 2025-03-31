@@ -70,7 +70,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const configuredVerifier = new SelfBackendVerifier(
                 'https://forno.celo.org',
                 "self-playground",
-                "https://playground.staging.self.xyz",
+                "https://playground.staging.self.xyz/",
+                // "https://03bf-2400-4150-8300-2d00-f83f-9c52-f581-17b9.ngrok-free.app",
                 "uuid",
                 true
             );
