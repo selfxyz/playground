@@ -43,9 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     minimumAge = savedOptions.minimumAge || minimumAge;
                     
                     if (savedOptions.excludedCountries && savedOptions.excludedCountries.length > 0) {
-                        excludedCountryList = savedOptions.excludedCountries.map(
-                            (code: string) => countryCodes[code as keyof typeof countryCodes] || code
-                        );
+                        excludedCountryList = savedOptions.excludedCountries
                     }
                     
                     enableOfac = savedOptions.ofac !== undefined ? savedOptions.ofac : enableOfac;

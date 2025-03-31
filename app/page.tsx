@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import SelfQRcodeWrapper, { SelfApp, SelfAppBuilder } from '@selfxyz/qrcode';
+import SelfQRcodeWrapper, { countries, SelfApp, SelfAppBuilder } from '@selfxyz/qrcode';
 import { v4 as uuidv4 } from 'uuid';
 import { countryCodes } from '@selfxyz/core';
 
@@ -25,26 +25,26 @@ function Playground() {
         // Custom checks
         minimumAge: 18,
         excludedCountries: [
-            "IRN", 
-            "IRQ", 
-            "PRK", 
-            "RUS", 
-            "SYR", 
-            "VEN"
+            countries.IRAN,
+            countries.IRAQ,
+            countries.NORTH_KOREA,
+            countries.RUSSIA,
+            countries.SYRIAN_ARAB_REPUBLIC,
+            countries.VENEZUELA
         ],
         ofac: true,
     });
 
     const [showCountryModal, setShowCountryModal] = useState(false);
     const [selectedCountries, setSelectedCountries] = useState<string[]>([
-        countryCodes.IRN,
-        countryCodes.IRQ,
-        countryCodes.PRK,
-        countryCodes.RUS,
-        countryCodes.SYR,
-        countryCodes.VEN
+        countries.IRAN,
+        countries.IRAQ,
+        countries.NORTH_KOREA,
+        countries.RUSSIA,
+        countries.SYRIAN_ARAB_REPUBLIC,
+        countries.VENEZUELA
     ]);
-    
+
     const [countrySelectionError, setCountrySelectionError] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -146,7 +146,7 @@ function Playground() {
         appName: "Self Playground",
         scope: "self-playground",
         endpoint: "https://playground.staging.self.xyz/api/verify",
-        // endpoint: "https://b947-2400-4150-8300-2d00-f83f-9c52-f581-17b9.ngrok-free.app/api/verify",
+        // endpoint: "https://1742-37-168-5-183.ngrok-free.app/api/verify",
         logoBase64: "https://i.imgur.com/Rz8B3s7.png",
         userId,
         disclosures: {
@@ -363,8 +363,8 @@ function Playground() {
                                 <label key={code} className="flex items-center space-x-2 p-1 hover:bg-gray-100 rounded">
                                     <input
                                         type="checkbox"
-                                        checked={selectedCountries.includes(country)}
-                                        onChange={() => handleCountryToggle(country)}
+                                        checked={selectedCountries.includes(code)}
+                                        onChange={() => handleCountryToggle(code)}
                                         className="h-4 w-4"
                                     />
                                     <span className="text-sm">{country}</span>
