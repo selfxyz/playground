@@ -43,6 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     minimumAge = savedOptions.minimumAge || minimumAge;
                     
                     if (savedOptions.excludedCountries && savedOptions.excludedCountries.length > 0) {
+                        console.log("exclude country: ", savedOptions.excludedCountries);
                         excludedCountryList = savedOptions.excludedCountries.map(
                             (code: string) => countryCodes[code as keyof typeof countryCodes] || code
                         );
