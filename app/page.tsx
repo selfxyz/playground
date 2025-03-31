@@ -153,7 +153,7 @@ function Playground() {
             ...disclosures,
             minimumAge: disclosures.minimumAge > 0 ? disclosures.minimumAge : undefined,
         },
-        devMode: false,
+        devMode: true,
     } as Partial<SelfApp>).build();
 
     console.log("selfApp in:", selfApp);
