@@ -43,9 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     minimumAge = savedOptions.minimumAge || minimumAge;
                     
                     if (savedOptions.excludedCountries && savedOptions.excludedCountries.length > 0) {
-                        excludedCountryList = savedOptions.excludedCountries.map(
-                            (code: string) => countryCodes[code as keyof typeof countryCodes] || code
-                        );
+                        excludedCountryList = savedOptions.excludedCountries
                     }
                     
                     enableOfac = savedOptions.ofac !== undefined ? savedOptions.ofac : enableOfac;
@@ -68,8 +66,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
             
             const configuredVerifier = new SelfBackendVerifier(
-                'https://forno.celo.org',
                 "self-playground",
+                "https://playground.self.xyz",
+                // "https://c622-118-169-75-84.ngrok-free.app",
+                "uuid",
+                false
             );
             
             if (minimumAge !== undefined) {
@@ -132,7 +133,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     status: 'error', 
                     result: result.isValid,
                     message: 'Verification failed',
-                    details: result.isValidDetails
+                    details: result
                 });
             }
         } catch (error) {
