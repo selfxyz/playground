@@ -637,9 +637,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@selfxyz/core@npm:^0.0.19":
-  version: 0.0.19
-  resolution: "@selfxyz/core@npm:0.0.19"
+"@selfxyz/core@npm:^0.0.21":
+  version: 0.0.21
+  resolution: "@selfxyz/core@npm:0.0.21"
   dependencies:
     "@types/react": "npm:^18.3.4"
     "@types/react-dom": "npm:^18.3.0"
@@ -656,7 +656,7 @@ __metadata:
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10c0/478a052cd34b09cd3950c350cea9f8f44b0bca028bd4507cfccc52c71042a8531a8335c33c1f6c3aec98035eaff8a5ec4f7135cde1bfb3c2c2d9dcd3889e45a6
+  checksum: 10c0/3f49f42c83ec184b70626a60d2dfd228908ec1bed69017c50577b6cc69f6a5ff32e7cbe4798c42320d61e4b47ba89e7b0023c600da5361f30d072398a25eb04e
   languageName: node
   linkType: hard
 
@@ -3893,7 +3893,7 @@ __metadata:
   resolution: "playground@workspace:."
   dependencies:
     "@eslint/eslintrc": "npm:^3"
-    "@selfxyz/core": "npm:^0.0.19"
+    "@selfxyz/core": "npm:^0.0.21"
     "@selfxyz/qrcode": "npm:^0.0.17"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19.0.10"
