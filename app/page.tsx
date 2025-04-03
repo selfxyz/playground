@@ -145,7 +145,7 @@ function Playground() {
     const selfApp = new SelfAppBuilder({
         appName: "Self Playground",
         scope: "self-playground",
-        endpoint: "playground-staging-git-update-testnet-fbb369-self-labs-65ffd24b.vercel.app/api/verify",
+        endpoint: "https://playground-staging-git-update-testnet-fbb369-self-labs-65ffd24b.vercel.app/api/verify",
         // endpoint: "https://c622-118-169-75-84.ngrok-free.app/api/verify",
         endpointType: "staging_https",
         logoBase64: "https://i.imgur.com/Rz8B3s7.png",
