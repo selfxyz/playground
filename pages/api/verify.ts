@@ -67,10 +67,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             
             const configuredVerifier = new SelfBackendVerifier(
                 "self-playground",
-                "https://playground.staging.self.xyz",
+                "https://playground.self.xyz",
                 // "https://c622-118-169-75-84.ngrok-free.app",
                 "uuid",
-                true
+                false
             );
             
             if (minimumAge !== undefined) {
