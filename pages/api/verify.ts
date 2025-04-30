@@ -20,9 +20,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log("Extracted userId from verification result:", userId);
 
             // Default options
+            // eslint-disable-next-line prefer-const
             let minimumAge;
+            // eslint-disable-next-line prefer-const
             let excludedCountryList: string[] = [];
+            // eslint-disable-next-line prefer-const
             let enableOfac = false;
+            // eslint-disable-next-line prefer-const
             let enabledDisclosures = {
                 issuing_state: false,
                 name: false,
