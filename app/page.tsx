@@ -142,8 +142,7 @@ function Playground() {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             if (userId) {
-                // 必要に応じて disclosures の変更をトリガーにして保存処理を呼び出すロジックに変更
-                // saveOptionsToServer(); 
+                saveOptionsToServer(); 
             }
         }, 500);
 
