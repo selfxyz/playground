@@ -185,8 +185,6 @@ function Playground() {
                             src="/self.svg" 
                             alt="Self Logo" 
                             className="h-8"
-                            width={32}
-                            height={32}
                         />
                     </div>
                 </div>
