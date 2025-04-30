@@ -142,7 +142,7 @@ function Playground() {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             if (userId) {
-                saveOptionsToServer(); 
+                saveOptionsToServer();
             }
         }, 500);
 
