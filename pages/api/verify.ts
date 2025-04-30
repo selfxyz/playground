@@ -38,41 +38,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             };
             
             // Try to retrieve options from store using userId
-            // if (userId) {
-            //     const savedOptions = await kv.get(userId) as SelfApp["disclosures"];
-            //     if (savedOptions) {
-            //         console.log("Saved options:", savedOptions);
+            if (userId) {
+                const savedOptions = await kv.get(userId) as SelfApp["disclosures"];
+                if (savedOptions) {
+                    console.log("Saved options:", savedOptions);
                     
-            //         // Apply saved options
-            //         minimumAge = savedOptions.minimumAge || minimumAge;
+                    // Apply saved options
+                    minimumAge = savedOptions.minimumAge || minimumAge;
                     
-            //         if (savedOptions.excludedCountries && savedOptions.excludedCountries.length > 0) {
-            //             excludedCountryList = savedOptions.excludedCountries
-            //         }
+                    if (savedOptions.excludedCountries && savedOptions.excludedCountries.length > 0) {
+                        excludedCountryList = savedOptions.excludedCountries
+                    }
                     
-            //         enableOfac = savedOptions.ofac !== undefined ? savedOptions.ofac : enableOfac;
+                    enableOfac = savedOptions.ofac !== undefined ? savedOptions.ofac : enableOfac;
                     
-            //         // Apply all disclosure settings
-            //         enabledDisclosures = {
-            //             issuing_state: savedOptions.issuing_state !== undefined ? savedOptions.issuing_state : enabledDisclosures.issuing_state,
-            //             name: savedOptions.name !== undefined ? savedOptions.name : enabledDisclosures.name,
-            //             nationality: savedOptions.nationality !== undefined ? savedOptions.nationality : enabledDisclosures.nationality,
-            //             date_of_birth: savedOptions.date_of_birth !== undefined ? savedOptions.date_of_birth : enabledDisclosures.date_of_birth,
-            //             passport_number: savedOptions.passport_number !== undefined ? savedOptions.passport_number : enabledDisclosures.passport_number,
-            //             gender: savedOptions.gender !== undefined ? savedOptions.gender : enabledDisclosures.gender,
-            //             expiry_date: savedOptions.expiry_date !== undefined ? savedOptions.expiry_date : enabledDisclosures.expiry_date
-            //         };
-            //     } else {
-            //         console.log("No saved options found for userId:", userId);
-            //     }
-            // } else {
-            //     console.log("No userId found in verification result, using default options");
-            // }
+                    // Apply all disclosure settings
+                    enabledDisclosures = {
+                        issuing_state: savedOptions.issuing_state !== undefined ? savedOptions.issuing_state : enabledDisclosures.issuing_state,
+                        name: savedOptions.name !== undefined ? savedOptions.name : enabledDisclosures.name,
+                        nationality: savedOptions.nationality !== undefined ? savedOptions.nationality : enabledDisclosures.nationality,
+                        date_of_birth: savedOptions.date_of_birth !== undefined ? savedOptions.date_of_birth : enabledDisclosures.date_of_birth,
+                        passport_number: savedOptions.passport_number !== undefined ? savedOptions.passport_number : enabledDisclosures.passport_number,
+                        gender: savedOptions.gender !== undefined ? savedOptions.gender : enabledDisclosures.gender,
+                        expiry_date: savedOptions.expiry_date !== undefined ? savedOptions.expiry_date : enabledDisclosures.expiry_date
+                    };
+                } else {
+                    console.log("No saved options found for userId:", userId);
+                }
+            } else {
+                console.log("No userId found in verification result, using default options");
+            }
             
             const configuredVerifier = new SelfBackendVerifier(
                 "self-playground",
-                // "https://playground.self.xyz",
-                "https://5ba4-219-104-171-120.ngrok-free.app",
+                "https://playground.staging.self.xyz",
+                // "https://5ba4-219-104-171-120.ngrok-free.app",
                 "uuid",
                 true
             );

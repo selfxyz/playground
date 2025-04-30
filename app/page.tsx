@@ -86,55 +86,55 @@ function Playground() {
         }));
     };
 
-    // const saveOptionsToServer = async () => {
-    //     if (!userId || savingOptions) return;
+    const saveOptionsToServer = async () => {
+        if (!userId || savingOptions) return;
         
-    //     setSavingOptions(true);
-    //     try {
-    //         const response = await fetch('/api/saveOptions', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({
-    //                 userId,
-    //                 options: {
-    //                     minimumAge: disclosures.minimumAge > 0 ? disclosures.minimumAge : undefined,
-    //                     excludedCountries: disclosures.excludedCountries,
-    //                     ofac: disclosures.ofac,
-    //                     issuing_state: disclosures.issuing_state,
-    //                     name: disclosures.name,
-    //                     nationality: disclosures.nationality,
-    //                     date_of_birth: disclosures.date_of_birth,
-    //                     passport_number: disclosures.passport_number,
-    //                     gender: disclosures.gender,
-    //                     expiry_date: disclosures.expiry_date
-    //                 }
-    //             }),
-    //         });
+        setSavingOptions(true);
+        try {
+            const response = await fetch('/api/saveOptions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId,
+                    options: {
+                        minimumAge: disclosures.minimumAge > 0 ? disclosures.minimumAge : undefined,
+                        excludedCountries: disclosures.excludedCountries,
+                        ofac: disclosures.ofac,
+                        issuing_state: disclosures.issuing_state,
+                        name: disclosures.name,
+                        nationality: disclosures.nationality,
+                        date_of_birth: disclosures.date_of_birth,
+                        passport_number: disclosures.passport_number,
+                        gender: disclosures.gender,
+                        expiry_date: disclosures.expiry_date
+                    }
+                }),
+            });
 
-    //         if (!response.ok) {
-    //             const errorData = await response.json();
-    //             throw new Error(errorData.message || 'Failed to save options');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error saving options:', error);
-    //         // Only show alert if it's a user-facing error
-    //         if (error instanceof Error && error.message) {
-    //             alert(error.message);
-    //         } else {
-    //             alert('Failed to save verification options. Please try again.');
-    //         }
-    //     } finally {
-    //         setSavingOptions(false);
-    //     }
-    // };
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to save options');
+            }
+        } catch (error) {
+            console.error('Error saving options:', error);
+            // Only show alert if it's a user-facing error
+            if (error instanceof Error && error.message) {
+                alert(error.message);
+            } else {
+                alert('Failed to save verification options. Please try again.');
+            }
+        } finally {
+            setSavingOptions(false);
+        }
+    };
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            // if (userId) {
-            //     saveOptionsToServer();
-            // }
+            if (userId) {
+                saveOptionsToServer();
+            }
         }, 500);
 
         return () => clearTimeout(timeoutId);
@@ -145,8 +145,8 @@ function Playground() {
     const selfApp = new SelfAppBuilder({
         appName: "Self Playground",
         scope: "self-playground",
-        // endpoint: "https://playground.self.xyz/api/verify",
-        endpoint: "https://5ba4-219-104-171-120.ngrok-free.app/api/verify",
+        endpoint: "https://playground.self.xyz/api/verify",
+        // endpoint: "https://5ba4-219-104-171-120.ngrok-free.app/api/verify",
         endpointType: "https",
         logoBase64: "https://i.imgur.com/Rz8B3s7.png",
         userId,
