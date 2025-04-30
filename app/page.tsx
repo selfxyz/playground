@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
 import { countryCodes } from '@selfxyz/core';
@@ -16,6 +16,7 @@ const SelfQRcodeWrapper = dynamic(
 function Playground() {
     const [userId, setUserId] = useState<string | null>(null);
     const [savingOptions, setSavingOptions] = useState(false);
+    const [selfApp, setSelfApp] = useState<SelfApp | null>(null);
 
     useEffect(() => {
         setUserId(uuidv4());
@@ -94,7 +95,7 @@ function Playground() {
         }));
     };
 
-    const saveOptionsToServer = async () => {
+    const saveOptionsToServer = useMemo(() => async () => {
         if (!userId || savingOptions) return;
         
         setSavingOptions(true);
@@ -136,36 +137,41 @@ function Playground() {
         } finally {
             setSavingOptions(false);
         }
-    };
+    }, [userId, savingOptions]);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             if (userId) {
-                saveOptionsToServer();
+                // 必要に応じて disclosures の変更をトリガーにして保存処理を呼び出すロジックに変更
+                // saveOptionsToServer(); 
             }
         }, 500);
 
         return () => clearTimeout(timeoutId);
-    }, [disclosures, userId, saveOptionsToServer]);
+    }, [userId, disclosures]);
+
+    useEffect(() => {
+        if (userId) {
+            const app = new SelfAppBuilder({
+                appName: "Self Playground",
+                scope: "self-playground",
+                endpoint: "https://playground.staging.self.xyz/api/verify",
+                // endpoint: "https://c622-118-169-75-84.ngrok-free.app/api/verify",
+                endpointType: "staging_https",
+                logoBase64: "https://i.imgur.com/Rz8B3s7.png",
+                userId,
+                disclosures: {
+                    ...disclosures,
+                    minimumAge: disclosures.minimumAge > 0 ? disclosures.minimumAge : undefined,
+                },
+                devMode: false,
+            } as Partial<SelfApp>).build();
+            setSelfApp(app);
+            console.log("selfApp built:", app);
+        }
+    }, [userId, disclosures]);
 
     if (!userId) return null;
-
-    const selfApp = new SelfAppBuilder({
-        appName: "Self Playground",
-        scope: "self-playground",
-        endpoint: "https://playground.staging.self.xyz/api/verify",
-        // endpoint: "https://c622-118-169-75-84.ngrok-free.app/api/verify",
-        endpointType: "staging_https",
-        logoBase64: "https://i.imgur.com/Rz8B3s7.png",
-        userId,
-        disclosures: {
-            ...disclosures,
-            minimumAge: disclosures.minimumAge > 0 ? disclosures.minimumAge : undefined,
-        },
-        devMode: false,
-    } as Partial<SelfApp>).build();
-
-    console.log("selfApp in:", selfApp);
 
     const filteredCountries = Object.entries(countryCodes).filter(([_, country]) =>
         country.toLowerCase().includes(searchQuery.toLowerCase())
@@ -210,15 +216,19 @@ function Playground() {
             <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
                 <div className="w-full max-w-6xl flex flex-col md:flex-row gap-8">
                     <div className="w-full md:w-1/2 flex flex-col items-center justify-center">
-                        <SelfQRcodeWrapper
-                            selfApp={selfApp}
-                            onSuccess={() => {
-                                console.log('Verification successful');
-                            }}
-                            darkMode={false}
-                        />
+                        {selfApp ? (
+                            <SelfQRcodeWrapper
+                                selfApp={selfApp}
+                                onSuccess={() => {
+                                    console.log('Verification successful');
+                                }}
+                                darkMode={false}
+                            />
+                        ) : (
+                            <p>Loading QR Code...</p>
+                        )}
                         <p className="mt-4 text-sm text-gray-700">
-                            User ID: {userId.substring(0, 8)}...
+                            User ID: {userId!.substring(0, 8)}...
                         </p>
                     </div>
 
