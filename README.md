@@ -30,4 +30,6 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 When developing locally, you can route the requests from the mobile app to your local machine by opening an ngrok endpoint using `ngrok http 3000` and replace `endpoint: "https://playground.self.xyz/api/verify"` in `app/page.tsx` with the newly generated url, that should look something like `endpoint: "https://198c-166-144-250-126.ngrok-free.app/api/verify"`.
 
-When deploying to Vercel, update it to match the URL of your Vercel deployment.
+After you do that, make sure you also update the url passed to `SelfBackendVerifier` in `pages/api/verify.ts` with your new ngrok url. This is so the sdk can check the proof comes from the right url, and avoids replay attacks that could be used to deanonimize users.
+
+When deploying to Vercel, update those urls to match your Vercel deployment url.

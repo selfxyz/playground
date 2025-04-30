@@ -20,9 +20,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log("Extracted userId from verification result:", userId);
 
             // Default options
+            // eslint-disable-next-line prefer-const
             let minimumAge;
+            // eslint-disable-next-line prefer-const
             let excludedCountryList: string[] = [];
+            // eslint-disable-next-line prefer-const
             let enableOfac = false;
+            // eslint-disable-next-line prefer-const
             let enabledDisclosures = {
                 issuing_state: false,
                 name: false,
@@ -68,7 +72,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const configuredVerifier = new SelfBackendVerifier(
                 "self-playground",
                 "https://playground.staging.self.xyz",
-                // "https://c622-118-169-75-84.ngrok-free.app",
+                // "https://5ba4-219-104-171-120.ngrok-free.app",
                 "uuid",
                 true
             );
