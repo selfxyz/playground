@@ -1,9 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import SelfQRcodeWrapper, { countries, SelfApp, SelfAppBuilder } from '@selfxyz/qrcode';
+import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
 import { countryCodes } from '@selfxyz/core';
+import { countries, SelfApp, SelfAppBuilder } from '@selfxyz/qrcode';
+import Image from 'next/image';
+
+// Import the QR code component with SSR disabled to prevent document references during server rendering
+const SelfQRcodeWrapper = dynamic(
+  () => import('@selfxyz/qrcode').then((mod) => mod.default),
+  { ssr: false }
+);
 
 function Playground() {
     const [userId, setUserId] = useState<string | null>(null);
@@ -138,7 +146,7 @@ function Playground() {
         }, 500);
 
         return () => clearTimeout(timeoutId);
-    }, [disclosures, userId]);
+    }, [disclosures, userId, saveOptionsToServer]);
 
     if (!userId) return null;
 
@@ -168,10 +176,12 @@ function Playground() {
             <nav className="w-full bg-white border-b border-gray-200 py-3 px-6 flex items-center justify-between">
                 <div className="flex items-center">
                     <div className="mr-8">
-                        <img 
+                        <Image 
                             src="/self.svg" 
                             alt="Self Logo" 
                             className="h-8"
+                            width={32}
+                            height={32}
                         />
                     </div>
                 </div>
