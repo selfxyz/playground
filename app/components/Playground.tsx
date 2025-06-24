@@ -164,6 +164,8 @@ function Playground() {
                     ...disclosures,
                     minimumAge: disclosures.minimumAge && disclosures.minimumAge > 0 ? disclosures.minimumAge : undefined,
                 },
+                version: 2, 
+                userDefinedData: "hello from the playground",
                 devMode: false,
             } as Partial<SelfApp>).build();
             setSelfApp(app);
