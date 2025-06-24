@@ -56,7 +56,7 @@ export default async function handler(
 
       const selfBackendVerifier = new SelfBackendVerifier(
         "self-playground",
-        "http://52.66.229.92:3000/api/verify",
+        "https://playground.staging.self.xyz/api/verify",
         true,
         AllIds,
         configStore,
