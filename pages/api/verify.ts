@@ -7,22 +7,29 @@ import {
   SelfBackendVerifier,
   AllIds,
 } from "@selfxyz/core";
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 
 export class KVConfigStore implements IConfigStorage {
-  constructor() {}
+  private redis: Redis;
+
+  constructor(url: string, token: string) {
+    this.redis = new Redis({
+      url: url,
+      token: token,
+    });
+  }
 
   async getActionId(userIdentifier: string, data: string): Promise<string> {
     return userIdentifier;
   }
 
   async setConfig(id: string, config: VerificationConfig): Promise<boolean> {
-    await kv.set(id, JSON.stringify(config));
+    await this.redis.set(id, JSON.stringify(config));
     return true;
   }
 
   async getConfig(id: string): Promise<VerificationConfig> {
-    const config = (await kv.get(id)) as VerificationConfig;
+    const config = (await this.redis.get(id)) as VerificationConfig;
     return config;
   }
 }
@@ -42,7 +49,10 @@ export default async function handler(
         });
       }
 
-      const configStore = new KVConfigStore();
+      const configStore = new KVConfigStore(
+        process.env.KV_REST_API_URL!,
+        process.env.KV_REST_API_TOKEN!
+      );
 
       const selfBackendVerifier = new SelfBackendVerifier(
         "self-playground",

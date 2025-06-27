@@ -123,6 +123,8 @@ function Playground() {
                 }),
             });
 
+            console.log("saved options to server");
+
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Failed to save options');
