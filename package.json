@@ -2,6 +2,7 @@
   "name": "playground",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,8 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@selfxyz/core": "^0.0.21",
-    "@selfxyz/qrcode": "^0.0.17",
+    "@selfxyz/core": "^1.0.3-beta.5",
+    "@selfxyz/qrcode": "^1.0.9",
     "@vercel/kv": "^3.0.0",
     "next": "^15.1.7",
     "react": "^19.0.0",
@@ -29,5 +30,6 @@
   },
   "engines": {
     "node": "20.x"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
