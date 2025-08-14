@@ -10,7 +10,7 @@ import type { SelfApp } from '@selfxyz/common';
 
 // Import the QR code component with SSR disabled to prevent document references during server rendering
 const SelfQRcodeWrapper = dynamic(
-  () => import('@selfxyz/qrcode').then((mod) => mod.default),
+  () => import('@selfxyz/qrcode').then((mod) => mod.SelfQRcodeWrapper),
   { ssr: false }
 );
 
