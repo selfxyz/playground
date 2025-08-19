@@ -10,7 +10,7 @@ import type { SelfApp } from '@selfxyz/common';
 
 // Import the QR code component with SSR disabled to prevent document references during server rendering
 const SelfQRcodeWrapper = dynamic(
-    () => import('@selfxyz/qrcode').then((mod) => mod.default),
+    () => import('@selfxyz/qrcode').then((mod) => mod.SelfQRcodeWrapper),
     { ssr: false }
 );
 
@@ -141,7 +141,7 @@ function Playground() {
         } finally {
             setSavingOptions(false);
         }
-    }, [userId, savingOptions]);
+    }, [userId, savingOptions, disclosures.minimumAge, disclosures.excludedCountries, disclosures.ofac, disclosures.issuing_state, disclosures.name, disclosures.nationality, disclosures.date_of_birth, disclosures.passport_number, disclosures.gender, disclosures.expiry_date]);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -151,7 +151,7 @@ function Playground() {
         }, 500);
 
         return () => clearTimeout(timeoutId);
-    }, [userId, disclosures]);
+    }, [userId, disclosures, saveOptionsToServer]);
 
     useEffect(() => {
         if (userId) {
