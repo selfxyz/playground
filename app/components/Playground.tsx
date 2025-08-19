@@ -209,12 +209,27 @@ function Playground() {
         const token = await sendPayload();
 
         if (token === "") {
+            console.error("No token received, aborting open");
             return;
-        } else {
-            await navigator.clipboard.writeText(token);
         }
 
-        window.open(universalLink, "_blank");
+        try {
+            await navigator.clipboard.writeText(token);
+            console.log("Token copied to clipboard");
+        } catch (err) {
+            console.error("Clipboard copy failed:", err);
+            prompt("Copy this token manually:", token);
+        }
+
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        if (isMobile) {
+            console.log("Mobile detected, navigating current tab to:", universalLink);
+            location.href = universalLink;
+        } else {
+            console.log("Desktop detected, opening new tab to:", universalLink);
+            window.open(universalLink, "_blank");
+        }
     };
 
     if (!userId) return null;
