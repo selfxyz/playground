@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
 import { countryCodes, SelfAppDisclosureConfig, type Country3LetterCode, SelfAppBuilder, getUniversalLink } from '@selfxyz/common';
@@ -19,6 +19,9 @@ function Playground() {
     const [savingOptions, setSavingOptions] = useState(false);
     const [selfApp, setSelfApp] = useState<SelfApp | null>(null);
     const [universalLink, setUniversalLink] = useState('');
+    const [token, setToken] = useState<string | null>(null);
+    const [isFetchingToken, setIsFetchingToken] = useState(false);
+    const [showOpenSheet, setShowOpenSheet] = useState(false);
 
     useEffect(() => {
         setUserId(uuidv4());
@@ -97,7 +100,7 @@ function Playground() {
         }));
     };
 
-    const saveOptionsToServer = useMemo(() => async () => {
+    const saveOptionsToServer = useCallback(async () => {
         if (!userId || savingOptions) return;
 
         setSavingOptions(true);
@@ -141,7 +144,9 @@ function Playground() {
         } finally {
             setSavingOptions(false);
         }
-    }, [userId, savingOptions, disclosures.minimumAge, disclosures.excludedCountries, disclosures.ofac, disclosures.issuing_state, disclosures.name, disclosures.nationality, disclosures.date_of_birth, disclosures.passport_number, disclosures.gender, disclosures.expiry_date]);
+    }, [userId, disclosures.minimumAge, disclosures.excludedCountries, disclosures.ofac, disclosures.issuing_state, disclosures.name, disclosures.nationality, disclosures.date_of_birth, disclosures.passport_number, disclosures.gender, disclosures.expiry_date]);
+
+    const disclosuresKey = useMemo(() => JSON.stringify(disclosures), [disclosures]);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -151,7 +156,7 @@ function Playground() {
         }, 500);
 
         return () => clearTimeout(timeoutId);
-    }, [userId, disclosures, saveOptionsToServer]);
+    }, [userId, disclosuresKey, saveOptionsToServer]);
 
     useEffect(() => {
         if (userId) {
@@ -203,31 +208,37 @@ function Playground() {
         }
     };
 
+    // Prefetch token when the link is ready to allow single-tap copy+open on mobile
+    useEffect(() => {
+        let cancelled = false;
+        const prefetch = async () => {
+            if (!userId || !universalLink) return;
+            if (token || isFetchingToken) return;
+            setIsFetchingToken(true);
+            const t = await sendPayload();
+            if (!cancelled) {
+                setToken(t || null);
+            }
+            setIsFetchingToken(false);
+        };
+        prefetch();
+        return () => { cancelled = true; };
+    }, [userId, universalLink]);
+
     const openSelfApp = async () => {
-        if (!universalLink) return;
+        if (!universalLink || !token) return;
 
-        const token = await sendPayload();
-
-        if (token === "") {
-            console.error("No token received, aborting open");
-            return;
-        }
-
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         try {
             await navigator.clipboard.writeText(token);
-            console.log("Token copied to clipboard");
+            console.log("Token copied via navigator.clipboard");
         } catch (err) {
             console.error("Clipboard copy failed:", err);
             prompt("Copy this token manually:", token);
         }
-
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
         if (isMobile) {
-            console.log("Mobile detected, navigating current tab to:", universalLink);
             location.href = universalLink;
         } else {
-            console.log("Desktop detected, opening new tab to:", universalLink);
             window.open(universalLink, "_blank");
         }
     };
@@ -296,10 +307,10 @@ function Playground() {
                         </p>
                         <button
                             onClick={openSelfApp}
-                            disabled={!universalLink}
-                            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                            disabled={!universalLink || !token}
+                            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-60 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
                         >
-                            Open in Self App
+                            {(!token || isFetchingToken) ? 'Preparing…' : 'Open in Self App'}
                         </button>
                     </div>
 
