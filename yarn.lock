@@ -721,10 +721,10 @@
     typescript-parser "^2.6.1"
     uuid "^11.0.5"
 
-"@selfxyz/core@^1.1.0-beta.0":
-  version "1.1.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-1.1.0-beta.0.tgz#2b74695074607516c9f8ed81ea6f5a598f3c4aa6"
-  integrity sha512-I8ikOnVUuHG98dCSc6uJERkzzyF9OwN+VNscPAct/CE7rsowo4ipRPErA/B6HcUqM7AlWwiiZPuah7nzKHBDfA==
+"@selfxyz/core@^1.1.0-beta.1":
+  version "1.1.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-1.1.0-beta.1.tgz#36e8ac7e462d2f10b64c1c9d54ef458a4f9b8b1b"
+  integrity sha512-kuVQQh5IthVogDZ7g10hlUjD3FvLn5L6t5nMk6tWSUzFqH9LR5aXtMH9ZhfTHifDiMLgrHqnWaUWRhbj7jS5SQ==
   dependencies:
     "@selfxyz/common" "^0.0.7"
     ethers "^6.13.5"
