@@ -38,6 +38,7 @@ function Playground() {
         expiry_date: false,
         // Custom checks
         minimumAge: 18,
+        // @ts-expect-error: Type mismatch between countries constants and Country3LetterCode
         excludedCountries: [
             countries.IRAN,
             countries.IRAQ,
@@ -89,6 +90,7 @@ function Playground() {
             return entry ? entry[0] : countryName.substring(0, 3).toUpperCase();
         }) as Country3LetterCode[];
 
+        // @ts-expect-error: Type mismatch between countries constants and Country3LetterCode
         setDisclosures(prev => ({ ...prev, excludedCountries: codes }));
         setShowCountryModal(false);
     };
