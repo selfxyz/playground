@@ -69,6 +69,25 @@ export default async function handler(
         publicSignals,
         userContextData
       );
+
+      if (!result.isValidDetails.isMinimumAgeValid) {
+        return res.status(400).json({
+          status: "error",
+          result: false,
+          message: "Minimum age verification failed",
+          details: result.isValidDetails,
+        });
+      }
+
+      if (!result.isValidDetails.isOfacValid) {
+        return res.status(400).json({
+          status: "error",
+          result: false,
+          message: "Excluded countries verification failed",
+          details: result.isValidDetails,
+        });
+      }
+
       if (!result.isValidDetails.isValid) {
         return res.status(500).json({
           status: "error",
