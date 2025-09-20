@@ -74,7 +74,7 @@ export default async function handler(
         return res.status(400).json({
           status: "error",
           result: false,
-          message: "Minimum age verification failed",
+          reason: "Minimum age verification failed",
           details: result.isValidDetails,
         });
       }
@@ -83,7 +83,7 @@ export default async function handler(
         return res.status(400).json({
           status: "error",
           result: false,
-          message: "Excluded countries verification failed",
+          reason: "OFAC verification failed",
           details: result.isValidDetails,
         });
       }
@@ -92,7 +92,7 @@ export default async function handler(
         return res.status(500).json({
           status: "error",
           result: false,
-          message: "Verification failed",
+          reason: "Verification failed",
           details: result.isValidDetails,
         });
       }
