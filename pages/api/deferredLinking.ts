@@ -8,7 +8,7 @@ export default async function handler(
         try {
             const payload = req.body;
 
-            const response = await fetch("https://api.self.xyz/post-deferred-linking-token", {
+            const response = await fetch("https://api.staging.self.xyz/post-deferred-linking-token", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
