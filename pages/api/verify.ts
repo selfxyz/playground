@@ -69,11 +69,30 @@ export default async function handler(
         publicSignals,
         userContextData
       );
-      if (!result.isValidDetails.isValid) {
-        return res.status(500).json({
+
+      if (!result.isValidDetails.isMinimumAgeValid) {
+        return res.status(200).json({
           status: "error",
           result: false,
-          message: "Verification failed",
+          reason: "Minimum age verification failed",
+          details: result.isValidDetails,
+        });
+      }
+
+      if (!result.isValidDetails.isOfacValid) {
+        return res.status(200).json({
+          status: "error",
+          result: false,
+          reason: "OFAC verification failed",
+          details: result.isValidDetails,
+        });
+      }
+
+      if (!result.isValidDetails.isValid) {
+        return res.status(200).json({
+          status: "error",
+          result: false,
+          reason: "Verification failed",
           details: result.isValidDetails,
         });
       }
@@ -125,19 +144,19 @@ export default async function handler(
           },
         });
       } else {
-        res.status(400).json({
+        res.status(200).json({
           status: "error",
           result: result.isValidDetails.isValid,
-          message: "Verification failed",
+          reason: "Proof verification failed",
           details: result,
         });
       }
     } catch (error) {
       console.error("Error verifying proof:", error);
-      return res.status(500).json({
+      return res.status(200).json({
         status: "error",
         result: false,
-        message: error instanceof Error ? error.message : "Unknown error",
+        reason: error instanceof Error ? error.message : "Unknown error",
       });
     }
   }
