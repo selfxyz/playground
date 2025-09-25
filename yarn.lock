@@ -33,6 +33,28 @@
     valid-url "^1.0.9"
     web-worker "1.2.0"
 
+"@anon-aadhaar/core@npm:@selfxyz/anon-aadhaar-core@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@selfxyz/anon-aadhaar-core/-/anon-aadhaar-core-0.0.1.tgz#d083f84f58c92474a4219ee710399f442722aafe"
+  integrity sha512-fULJGDQsg0fS+ZiGLvb0j+W6NpZHFdLbLTrd0w3ThhcH8pu1unbF/CewpomjWiBVVmBZr/OxsaL7xQXoISa/Sw==
+  dependencies:
+    "@pcd/pcd-types" "^0.10.0"
+    "@pcd/tsconfig" "^0.6.0"
+    "@types/node-forge" "^1.3.8"
+    "@types/snarkjs" "^0.7.6"
+    "@zk-email/helpers" "^6.1.1"
+    buffer "^6.0.3"
+    json-bigint "^1.0.0"
+    localforage "^1.10.0"
+    pako "^2.1.0"
+    react "^18.2.0"
+    react-dom "^18.2.0"
+    snarkjs "^0.7.3"
+    styled-components "^6.0.0-rc.1"
+    uuid "^9.0.0"
+    valid-url "^1.0.9"
+    web-worker "1.2.0"
+
 "@emnapi/core@^1.4.3":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@emnapi/core/-/core-1.5.0.tgz#85cd84537ec989cebb2343606a1ee663ce4edaf0"
@@ -1010,12 +1032,47 @@
     typescript-parser "^2.6.1"
     uuid "^11.1.0"
 
-"@selfxyz/core@^1.1.0-beta.2":
-  version "1.1.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-1.1.0-beta.2.tgz#3de6ed0237b4cdf8a885d16eb0a2172c17e08079"
-  integrity sha512-lnmVJfQT1os4x0axfu3tPgJsdddmk98vJmvOrKYMT1bCP7+lb/5eR30QE/2ufCFZnnm1IuZncgGqlfEb+f2HbA==
+"@selfxyz/common@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@selfxyz/common/-/common-0.0.9.tgz#6134c23de4d58e51493b2676cdcf7accd99cde5c"
+  integrity sha512-DXoDvRSyK3/MdghR2mietlGZXzdpSLU9tg0NUOauO2Ha3J08fXekGBk/zbmlfgSMJ7rxs+yAt7UFJJ84tLrZwA==
   dependencies:
-    "@selfxyz/common" "^0.0.8"
+    "@anon-aadhaar/core" "npm:@selfxyz/anon-aadhaar-core@^0.0.1"
+    "@openpassport/zk-kit-imt" "^0.0.5"
+    "@openpassport/zk-kit-lean-imt" "^0.0.6"
+    "@openpassport/zk-kit-smt" "^0.0.1"
+    "@peculiar/x509" "^1.12.3"
+    "@stablelib/cbor" "^2.0.1"
+    asn1.js "^5.4.1"
+    asn1js "^3.0.5"
+    axios "^1.7.2"
+    buffer "^6.0.3"
+    country-emoji "^1.5.6"
+    country-iso-3-to-2 "^1.1.1"
+    elliptic "^6.5.5"
+    ethers "^6.14.4"
+    fs "^0.0.1-security"
+    hash.js "^1.1.7"
+    i18n-iso-countries "^7.13.0"
+    js-sha1 "^0.7.0"
+    js-sha256 "^0.11.0"
+    js-sha512 "^0.9.0"
+    json-to-ts "^2.1.0"
+    jsrsasign "^11.1.0"
+    node-forge "github:remicolin/forge#17a11a632dd0e50343b3b8393245a2696f78afbb"
+    path "^0.12.7"
+    pkijs "^3.2.4"
+    poseidon-lite "^0.2.0"
+    snarkjs "^0.7.5"
+    typescript-parser "^2.6.1"
+    uuid "^11.1.0"
+
+"@selfxyz/core@^1.1.0-beta.4":
+  version "1.1.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-1.1.0-beta.4.tgz#617495f32077cfc76d3359415bce0f07c526d773"
+  integrity sha512-eH9tH2c90h2/+GO65mctZbqC6cK3jLSFo07jrmUyfa44HWjDgxEznydJl2dITBx2PcMhh9RUJXJGA7XMUEuc6Q==
+  dependencies:
+    "@selfxyz/common" "^0.0.9"
     ethers "^6.13.5"
     js-sha1 "^0.7.0"
     js-sha256 "^0.11.0"
