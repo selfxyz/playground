@@ -1148,10 +1148,10 @@
     typescript-parser "^2.6.1"
     uuid "^11.1.0"
 
-"@selfxyz/core@^1.1.0-beta.3":
-  version "1.1.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-1.1.0-beta.3.tgz#d3fb1c2449855b63cdc7840c2d20bfdbb9fd6986"
-  integrity sha512-Iwxpb1lIwOPEQ1+fd7q5oiRHz4yHO0S06OfmPB+kI1FWiQ5kA67BzJK77oMoEcH9oMFvf9Okp5ax7ZE0S2GYow==
+"@selfxyz/core@^1.1.0-beta.4":
+  version "1.1.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-1.1.0-beta.4.tgz#617495f32077cfc76d3359415bce0f07c526d773"
+  integrity sha512-eH9tH2c90h2/+GO65mctZbqC6cK3jLSFo07jrmUyfa44HWjDgxEznydJl2dITBx2PcMhh9RUJXJGA7XMUEuc6Q==
   dependencies:
     "@selfxyz/common" "^0.0.9"
     ethers "^6.13.5"
