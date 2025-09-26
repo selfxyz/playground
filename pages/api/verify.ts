@@ -70,7 +70,7 @@ export default async function handler(
         userContextData
       );
 
-      if (!result.isValidDetails.isMinimumAgeValid) {
+      if (result.isValidDetails.isMinimumAgeValid) {
         return res.status(200).json({
           status: "error",
           result: false,
