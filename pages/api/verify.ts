@@ -79,7 +79,7 @@ export default async function handler(
         });
       }
 
-      if (!result.isValidDetails.isOfacValid) {
+      if (result.isValidDetails.isOfacValid) {
         return res.status(200).json({
           status: "error",
           result: false,
