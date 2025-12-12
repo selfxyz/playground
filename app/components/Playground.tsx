@@ -3,10 +3,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
-import { countryCodes, SelfAppDisclosureConfig, type Country3LetterCode } from '@selfxyz/common';
 import { countries, SelfAppBuilder } from '@selfxyz/qrcode';
+import { countryCodes, SelfAppDisclosureConfig, type Country3LetterCode, SelfApp } from '@selfxyz/sdk-common';
 import Image from 'next/image';
-import type { SelfApp } from '@selfxyz/common';
 
 // Import the QR code component with SSR disabled to prevent document references during server rendering
 const SelfQRcodeWrapper = dynamic(
