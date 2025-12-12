@@ -12,27 +12,6 @@
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
-"@anon-aadhaar/core@https://gitpkg.vercel.app/selfxyz/anon-aadhaar/packages/core?1b9efa501cff3cf25dc260b060bf611229e316a4":
-  version "2.4.3"
-  resolved "https://gitpkg.vercel.app/selfxyz/anon-aadhaar/packages/core?1b9efa501cff3cf25dc260b060bf611229e316a4#5beb355030da106e663f01b404ee5ce81c9a2ed8"
-  dependencies:
-    "@pcd/pcd-types" "^0.10.0"
-    "@pcd/tsconfig" "^0.6.0"
-    "@types/node-forge" "^1.3.8"
-    "@types/snarkjs" "^0.7.6"
-    "@zk-email/helpers" "^6.1.1"
-    buffer "^6.0.3"
-    json-bigint "^1.0.0"
-    localforage "^1.10.0"
-    pako "^2.1.0"
-    react "^18.2.0"
-    react-dom "^18.2.0"
-    snarkjs "^0.7.3"
-    styled-components "^6.0.0-rc.1"
-    uuid "^9.0.0"
-    valid-url "^1.0.9"
-    web-worker "1.2.0"
-
 "@anon-aadhaar/core@npm:@selfxyz/anon-aadhaar-core@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@selfxyz/anon-aadhaar-core/-/anon-aadhaar-core-0.0.1.tgz#d083f84f58c92474a4219ee710399f442722aafe"
@@ -997,41 +976,6 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.12.0.tgz#326a7b46f6d4cfa54ae25bb888551697873069b4"
   integrity sha512-5EwMtOqvJMMa3HbmxLlF74e+3/HhwBTMcvt3nqVJgGCozO6hzIPOBlwm8mGVNR9SN2IJpxSnlxczyDjcn7qIyw==
 
-"@selfxyz/common@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@selfxyz/common/-/common-0.0.8.tgz#9984510b40cc220c79c5a0d76d85065cba8f83b5"
-  integrity sha512-npxx2O/BptBhUxJQBCTSbJPEG9wqahw+KolBKAJDOlaD3ufoZFrnEdlQ8zsBRHIB0CNfZp+hITf8zZjkZg1yGQ==
-  dependencies:
-    "@anon-aadhaar/core" "https://gitpkg.vercel.app/selfxyz/anon-aadhaar/packages/core?1b9efa501cff3cf25dc260b060bf611229e316a4"
-    "@openpassport/zk-kit-imt" "^0.0.5"
-    "@openpassport/zk-kit-lean-imt" "^0.0.6"
-    "@openpassport/zk-kit-smt" "^0.0.1"
-    "@peculiar/x509" "^1.12.3"
-    "@stablelib/cbor" "^2.0.1"
-    asn1.js "^5.4.1"
-    asn1js "^3.0.5"
-    axios "^1.7.2"
-    buffer "^6.0.3"
-    country-emoji "^1.5.6"
-    country-iso-3-to-2 "^1.1.1"
-    elliptic "^6.5.5"
-    ethers "^6.14.4"
-    fs "^0.0.1-security"
-    hash.js "^1.1.7"
-    i18n-iso-countries "^7.13.0"
-    js-sha1 "^0.7.0"
-    js-sha256 "^0.11.0"
-    js-sha512 "^0.9.0"
-    json-to-ts "^2.1.0"
-    jsrsasign "^11.1.0"
-    node-forge "github:remicolin/forge#17a11a632dd0e50343b3b8393245a2696f78afbb"
-    path "^0.12.7"
-    pkijs "^3.2.4"
-    poseidon-lite "^0.2.0"
-    snarkjs "^0.7.5"
-    typescript-parser "^2.6.1"
-    uuid "^11.1.0"
-
 "@selfxyz/common@^0.0.9":
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/@selfxyz/common/-/common-0.0.9.tgz#6134c23de4d58e51493b2676cdcf7accd99cde5c"
@@ -1067,10 +1011,10 @@
     typescript-parser "^2.6.1"
     uuid "^11.1.0"
 
-"@selfxyz/core@^1.1.0-beta.4":
-  version "1.1.0-beta.4"
-  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-1.1.0-beta.4.tgz#617495f32077cfc76d3359415bce0f07c526d773"
-  integrity sha512-eH9tH2c90h2/+GO65mctZbqC6cK3jLSFo07jrmUyfa44HWjDgxEznydJl2dITBx2PcMhh9RUJXJGA7XMUEuc6Q==
+"@selfxyz/core@^1.1.0-beta.7":
+  version "1.1.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-1.1.0-beta.7.tgz#fbeb5781d7129b11f0fad1ab3d8538394816ce48"
+  integrity sha512-wnPm+MniQDFf4rRMIgZbZ/wdidkDytk2fuGdNG6Ml8avgIq6fAxax1eMY35v3W1cNNeO09bWZ6N/lflgvsVB7g==
   dependencies:
     "@selfxyz/common" "^0.0.9"
     ethers "^6.13.5"
@@ -1082,12 +1026,12 @@
     snarkjs "^0.7.4"
     uuid "^11.1.0"
 
-"@selfxyz/qrcode@^1.0.11":
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/@selfxyz/qrcode/-/qrcode-1.0.13.tgz#f4c375cbdd89f35736bb01ae10954d206ca5ae0b"
-  integrity sha512-DY87Ah8ZKYdIUCs3vZ6yn4A3Az5DaQFqXqSwYy2+QIqmFIU2JtpUGuLO4h2ULI8hzbWzIgBGCwA4b1PTVc4Y7w==
+"@selfxyz/qrcode@^1.0.17":
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/@selfxyz/qrcode/-/qrcode-1.0.17.tgz#4985be2be782f56f616edcfdd48e568e4b67e6c5"
+  integrity sha512-kp2CyLVT3sfgNXFMwZbR/fqKMPXeq32a9rzJ8I6E8dJdKpD3VsKbZ58m3B4Y4qAvPPh5VoxAj5CqRLpjsl5yjg==
   dependencies:
-    "@selfxyz/common" "^0.0.8"
+    "@selfxyz/sdk-common" "^1.0.0"
     js-sha1 "^0.7.0"
     js-sha256 "^0.11.0"
     js-sha512 "^0.9.0"
@@ -1098,6 +1042,13 @@
     react-spinners "^0.14.1"
     socket.io-client "^4.8.1"
     uuid "^11.1.0"
+
+"@selfxyz/sdk-common@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@selfxyz/sdk-common/-/sdk-common-1.0.0.tgz#34a9f88af2a91ada2d68943db5dd7e4ed039f2af"
+  integrity sha512-NzOJZAH2qCtgk2ZKmHoV7zJYCpdvms9xdw/cfmDRQOlE4w6lS1icqThGb40lX4C/3kurL4Yf9kFC1OG2sHHurw==
+  dependencies:
+    uuid "^13.0.0"
 
 "@socket.io/component-emitter@~3.1.0":
   version "3.1.2"
@@ -4959,6 +4910,11 @@ uuid@^11.1.0:
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.1.0.tgz#9549028be1753bb934fc96e2bca09bb4105ae912"
   integrity sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==
+
+uuid@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-13.0.0.tgz#263dc341b19b4d755eb8fe36b78d95a6b65707e8"
+  integrity sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==
 
 uuid@^9.0.0:
   version "9.0.1"

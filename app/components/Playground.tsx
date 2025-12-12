@@ -3,10 +3,9 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
-import { countryCodes, SelfAppDisclosureConfig, type Country3LetterCode, SelfAppBuilder, getUniversalLink } from '@selfxyz/common';
+import { countryCodes, SelfAppDisclosureConfig, type Country3LetterCode, SelfAppBuilder, getUniversalLink, type SelfApp } from '@selfxyz/sdk-common';
 import { countries } from '@selfxyz/qrcode';
 import Image from 'next/image';
-import type { SelfApp } from '@selfxyz/common';
 
 // Import the QR code component with SSR disabled to prevent document references during server rendering
 const SelfQRcodeWrapper = dynamic(
@@ -38,7 +37,6 @@ function Playground() {
         expiry_date: false,
         // Custom checks
         minimumAge: 18,
-        // @ts-expect-error: Type mismatch between countries constants and Country3LetterCode
         excludedCountries: [
             countries.IRAN,
             countries.IRAQ,
@@ -90,7 +88,6 @@ function Playground() {
             return entry ? entry[0] : countryName.substring(0, 3).toUpperCase();
         }) as Country3LetterCode[];
 
-        // @ts-expect-error: Type mismatch between countries constants and Country3LetterCode
         setDisclosures(prev => ({ ...prev, excludedCountries: codes }));
         setShowCountryModal(false);
     };
