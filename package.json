@@ -13,7 +13,7 @@
     "@selfxyz/core": "^1.1.0-beta.4",
     "@selfxyz/qrcode": "^1.0.11",
     "@vercel/kv": "^3.0.0",
-    "next": "^15.1.7",
+    "next": "15.5.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
