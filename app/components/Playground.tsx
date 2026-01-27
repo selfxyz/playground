@@ -254,7 +254,7 @@ function Playground() {
                 <div className="flex items-center">
                     <div className="mr-8">
                         <Image
-                            width={32}
+                            width={96}
                             height={32}
                             src="/self.svg"
                             alt="Self Logo"
