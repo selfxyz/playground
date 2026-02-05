@@ -163,7 +163,6 @@ function Playground() {
                 appName: "Self Playground",
                 scope: "self-playground",
                 endpoint: "https://playground.staging.self.xyz/api/verify",
-                // endpoint: "https://c622-118-169-75-84.ngrok-free.app/api/verify",
                 endpointType: "staging_https",
                 logoBase64: "https://i.imgur.com/Rz8B3s7.png",
                 userId,

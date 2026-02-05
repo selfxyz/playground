@@ -24,7 +24,7 @@ export class KVConfigStore implements IConfigStorage {
   }
 
   async setConfig(id: string, config: VerificationConfig): Promise<boolean> {
-    await this.redis.set(id, JSON.stringify(config));
+    await this.redis.setex(id, 1800, JSON.stringify(config)); 
     return true;
   }
 
