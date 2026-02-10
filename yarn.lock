@@ -886,17 +886,17 @@
     typescript-parser "^2.6.1"
     uuid "^11.1.0"
 
-"@selfxyz/core@^1.1.0-beta.7":
-  version "1.1.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-1.1.0-beta.7.tgz#fbeb5781d7129b11f0fad1ab3d8538394816ce48"
-  integrity sha512-wnPm+MniQDFf4rRMIgZbZ/wdidkDytk2fuGdNG6Ml8avgIq6fAxax1eMY35v3W1cNNeO09bWZ6N/lflgvsVB7g==
+"@selfxyz/core@^1.2.0-beta.1":
+  version "1.2.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-1.2.0-beta.1.tgz#1877f90c32ccd70f64d9c74822ac90e4be0d33ad"
+  integrity sha512-eWLKXgxsmn1xD2F3re+Zm3tCu53HrwVxmBls35Zvj+2GNn7w4d5QI2+ilDB2TG0601p520qKLulu3XwpeM8HCg==
   dependencies:
     "@selfxyz/common" "^0.0.9"
     ethers "^6.13.5"
     js-sha1 "^0.7.0"
     js-sha256 "^0.11.0"
     js-sha512 "^0.9.0"
-    node-forge "^1.3.1"
+    node-forge "^1.3.3"
     poseidon-lite "^0.3.0"
     snarkjs "^0.7.4"
     uuid "^11.1.0"
@@ -1264,19 +1264,12 @@
   resolved "https://registry.yarnpkg.com/@unrs/resolver-binding-win32-x64-msvc/-/resolver-binding-win32-x64-msvc-1.11.1.tgz#538b1e103bf8d9864e7b85cc96fa8d6fb6c40777"
   integrity sha512-lrW200hZdbfRtztbygyaq/6jP6AKE8qQN2KvPcJ+x7wiD038YtnYtZ82IMNJ69GJibV7bwL3y9FgK+5w/pYt6g==
 
-"@upstash/redis@^1.34.0":
-  version "1.35.3"
-  resolved "https://registry.yarnpkg.com/@upstash/redis/-/redis-1.35.3.tgz#7b383b6a8af57e619c054bdccdb7a6159860cdf5"
-  integrity sha512-hSjv66NOuahW3MisRGlSgoszU2uONAY2l5Qo3Sae8OT3/Tng9K+2/cBRuyPBX8egwEGcNNCF9+r0V6grNnhL+w==
+"@upstash/redis@1.34.0":
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/@upstash/redis/-/redis-1.34.0.tgz#f32cd53ebeeafbba7eca10f8597a573d5a2fed0d"
+  integrity sha512-TrXNoJLkysIl8SBc4u9bNnyoFYoILpCcFJcLyWCccb/QSUmaVKdvY0m5diZqc3btExsapcMbaw/s/wh9Sf1pJw==
   dependencies:
-    uncrypto "^0.1.3"
-
-"@vercel/kv@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@vercel/kv/-/kv-3.0.0.tgz#4579153536c9fc0ca8c52d3d7cfe944ccffd08c0"
-  integrity sha512-pKT8fRnfyYk2MgvyB6fn6ipJPCdfZwiKDdw7vB+HL50rjboEBHDVBEcnwfkEpVSp2AjNtoaOUH7zG+bVC/rvSg==
-  dependencies:
-    "@upstash/redis" "^1.34.0"
+    crypto-js "^4.2.0"
 
 "@zk-email/helpers@^6.1.1":
   version "6.4.2"
@@ -1831,6 +1824,11 @@ cross-spawn@^7.0.6:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
+
+crypto-js@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.2.0.tgz#4d931639ecdfd12ff80e8186dba6af2c2e856631"
+  integrity sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==
 
 css-color-keywords@^1.0.0:
   version "1.0.0"
@@ -3495,6 +3493,11 @@ node-forge@^1.3.1:
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-1.3.3.tgz#0ad80f6333b3a0045e827ac20b7f735f93716751"
   integrity sha512-rLvcdSyRCyouf6jcOIPe/BgwG/d7hKjzMKOas33/pHEr6gbq18IK9zV7DiPvzsz0oBJPme6qr6H6kGZuI9/DZg==
 
+node-forge@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-1.3.3.tgz#0ad80f6333b3a0045e827ac20b7f735f93716751"
+  integrity sha512-rLvcdSyRCyouf6jcOIPe/BgwG/d7hKjzMKOas33/pHEr6gbq18IK9zV7DiPvzsz0oBJPme6qr6H6kGZuI9/DZg==
+
 "node-forge@github:remicolin/forge#17a11a632dd0e50343b3b8393245a2696f78afbb":
   version "1.3.2-0"
   resolved "https://codeload.github.com/remicolin/forge/tar.gz/17a11a632dd0e50343b3b8393245a2696f78afbb"
@@ -4685,11 +4688,6 @@ unbox-primitive@^1.1.0:
     has-bigints "^1.0.2"
     has-symbols "^1.1.0"
     which-boxed-primitive "^1.1.1"
-
-uncrypto@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/uncrypto/-/uncrypto-0.1.3.tgz#e1288d609226f2d02d8d69ee861fa20d8348ef2b"
-  integrity sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==
 
 underscore@1.12.1:
   version "1.12.1"

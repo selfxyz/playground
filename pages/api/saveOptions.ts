@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { kv } from "@vercel/kv";
+import { KVConfigStore } from "./verify";
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,7 +22,11 @@ export default async function handler(
 
     console.log("Saving options for user:", userId, options);
     // Store the options in Vercel KV with a 30-minute expiration
-    await kv.set(userId, JSON.stringify(options), { ex: 1800 }); // 1800 seconds = 30 minutes
+    const configStore = new KVConfigStore(
+      process.env.KV_REST_API_URL!,
+      process.env.KV_REST_API_TOKEN!
+    );
+    await configStore.setConfig(userId, options);
 
     return res.status(200).json({ message: "Options saved successfully" });
   } catch (error) {
