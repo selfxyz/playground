@@ -1,6 +1,4 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+const nextConfig = {
   /* config options here */
   reactStrictMode: true,
   compiler: {
@@ -9,11 +7,11 @@ const nextConfig: NextConfig = {
   webpack: (config, { isServer }) => {
     // Fix for packages that use 'document' in server context
     if (isServer) {
-      config.externals = [...(config.externals || []), '@selfxyz/qrcode'];
+      config.externals = [...(config.externals || []), "@selfxyz/qrcode"];
     }
-    
+
     return config;
-  }
+  },
 };
 
 export default nextConfig;
