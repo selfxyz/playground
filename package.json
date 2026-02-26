@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@selfxyz/core": "^1.2.0-beta.1",
-    "@selfxyz/qrcode": "link:../self/sdk/qrcode",
-    "@selfxyz/sdk-common": "link:../self/sdk/sdk-common",
+    "@selfxyz/qrcode": "latest",
+    "@selfxyz/sdk-common": "latest",
     "@upstash/redis": "1.34.0",
     "next": "15.5.9",
     "react": "^19.0.0",

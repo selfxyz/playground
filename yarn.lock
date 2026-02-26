@@ -1028,18 +1028,37 @@
     snarkjs "^0.7.4"
     uuid "^11.1.0"
 
-"@selfxyz/qrcode@link:../self/sdk/qrcode":
-  version "0.0.0"
-  uid ""
+"@selfxyz/qrcode@latest":
+  version "1.0.21"
+  resolved "https://registry.yarnpkg.com/@selfxyz/qrcode/-/qrcode-1.0.21.tgz#ff33f3ca64180d79844689d48a43484b5ec5a744"
+  integrity sha512-qhLhPiT0wC8IV1kYTY1uaTvPNYOf7pJ3t/96cCpktekpki+WXmffWImDSDmmLULvBKkFd/D/MjfmubJNO/K+kQ==
+  dependencies:
+    "@selfxyz/sdk-common" "workspace:^"
+    js-sha1 "^0.7.0"
+    js-sha256 "^0.11.0"
+    js-sha512 "^0.9.0"
+    lottie-react "^2.4.0"
+    node-forge "^1.3.3"
+    poseidon-lite "^0.3.0"
+    qrcode.react "^4.1.0"
+    react-spinners "^0.14.1"
+    socket.io-client "^4.8.3"
+    uuid "^11.1.0"
+
+"@selfxyz/sdk-common@latest":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@selfxyz/sdk-common/-/sdk-common-1.0.0.tgz#34a9f88af2a91ada2d68943db5dd7e4ed039f2af"
+  integrity sha512-NzOJZAH2qCtgk2ZKmHoV7zJYCpdvms9xdw/cfmDRQOlE4w6lS1icqThGb40lX4C/3kurL4Yf9kFC1OG2sHHurw==
+  dependencies:
+    uuid "^13.0.0"
 
 "@selfxyz/sdk-common@link:../self/sdk/sdk-common":
   version "0.0.0"
   uid ""
 
 "@selfxyz/sdk-common@workspace:^":
-  version "1.0.0"
-  dependencies:
-    uuid "^13.0.0"
+  version "0.0.0"
+  uid ""
 
 "@socket.io/component-emitter@~3.1.0":
   version "3.1.2"

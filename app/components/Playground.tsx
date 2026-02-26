@@ -14,6 +14,11 @@ const SelfQRcodeWrapper = dynamic(
     { ssr: false }
 );
 
+const SelfDeepLinkButton = dynamic(
+    () => import('@selfxyz/qrcode').then((mod) => mod.SelfDeepLinkButton),
+    { ssr: false }
+);
+
 function Playground() {
     const [userId, setUserId] = useState<string | null>(null);
     const [savingOptions, setSavingOptions] = useState(false);
@@ -21,8 +26,15 @@ function Playground() {
     const [token, setToken] = useState<string | null>(null);
     const [isFetchingToken, setIsFetchingToken] = useState(false);
     const [appName, setAppName] = useState('Self Playground');
-    const [appIconUrl, setAppIconUrl] = useState('https://i.imgur.com/Rz8B3s7.png');
+    const [appIconUrl, setAppIconUrl] = useState('https://image2url.com/r2/default/images/1772123009674-14365df5-cc03-433d-9c21-814d43ad2fb8.png');
     const [previewTab, setPreviewTab] = useState<'desktop' | 'mobile' | 'alternates' | 'code'>('desktop');
+
+    useEffect(() => {
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (isMobile) {
+            setPreviewTab('mobile');
+        }
+    }, []);
 
     useEffect(() => {
         setUserId(uuidv4());
@@ -59,6 +71,8 @@ function Playground() {
     ]);
     const [countrySelectionError, setCountrySelectionError] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const [showIconPopover, setShowIconPopover] = useState(false);
+    const [iconUrlInput, setIconUrlInput] = useState(appIconUrl);
 
     const incrementAge = () => {
         setDisclosures(prev => ({
@@ -105,7 +119,7 @@ function Playground() {
     };
 
     const saveOptionsToServer = useCallback(async () => {
-        if (!userId || savingOptions) return;
+        if (!userId) return;
         setSavingOptions(true);
         try {
             const response = await fetch('/api/saveOptions', {
@@ -243,7 +257,7 @@ function Playground() {
 
     const previewTabs = [
         { id: 'desktop' as const, label: 'Desktop', enabled: true },
-        { id: 'mobile' as const, label: 'Mobile', enabled: false },
+        { id: 'mobile' as const, label: 'Mobile', enabled: true },
         { id: 'alternates' as const, label: 'Alternates', enabled: false },
         { id: 'code' as const, label: 'Code Snippets', enabled: false },
     ];
@@ -251,21 +265,21 @@ function Playground() {
     return (
         <div className="flex flex-col min-h-screen bg-white text-slate-900 font-din" suppressHydrationWarning>
             {/* Nav Bar */}
-            <nav className="w-full bg-white border-b border-[#e2e8f0] px-[20px] py-[10px] flex items-center gap-[30px] overflow-clip shrink-0">
+            <nav className="w-full bg-white border-b border-[#e2e8f0] px-[12px] py-[10px] flex items-center gap-[12px] md:px-[20px] md:gap-[30px] overflow-clip shrink-0">
                 <div className="flex items-center shrink-0">
                     <Image width={80} height={30} src="/self.svg" alt="Self Logo" className="h-[30px] w-[80px]" />
                 </div>
                 <div className="flex-1 flex items-center gap-[8px]">
                     <span className="h-[36px] px-[16px] pt-[10px] pb-[14px] text-[14px] font-medium text-white bg-black rounded-[5px] flex items-center justify-center">Playground</span>
-                    <a href="https://docs.self.xyz/quick-start" target="_blank" rel="noopener noreferrer" className="h-[36px] px-[16px] pt-[10px] pb-[14px] text-[14px] font-medium text-[#64748b] rounded-[5px] hover:bg-slate-50 transition-colors flex items-center justify-center">Guides</a>
-                    <a href="https://discord.gg/self" target="_blank" rel="noopener noreferrer" className="h-[36px] px-[16px] pt-[10px] pb-[14px] text-[14px] font-medium text-[#64748b] rounded-[5px] hover:bg-slate-50 transition-colors flex items-center justify-center">Community</a>
+                    <a href="https://docs.self.xyz/quick-start" target="_blank" rel="noopener noreferrer" className="hidden md:flex h-[36px] px-[16px] pt-[10px] pb-[14px] text-[14px] font-medium text-[#64748b] rounded-[5px] hover:bg-slate-50 transition-colors items-center justify-center">Guides</a>
+                    <a href="https://discord.gg/self" target="_blank" rel="noopener noreferrer" className="hidden md:flex h-[36px] px-[16px] pt-[10px] pb-[14px] text-[14px] font-medium text-[#64748b] rounded-[5px] hover:bg-slate-50 transition-colors items-center justify-center">Community</a>
                 </div>
                 <div className="flex items-center gap-[8px] shrink-0">
                     <a
                         href="https://github.com/selfxyz/self"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="h-[36px] px-[16px] border border-[#e2e8f0] rounded-[5px] flex items-center gap-[10px] text-[14px] font-medium text-[#64748b] bg-white hover:bg-slate-50 transition-colors"
+                        className="hidden md:flex h-[36px] px-[16px] border border-[#e2e8f0] rounded-[5px] items-center gap-[10px] text-[14px] font-medium text-[#64748b] bg-white hover:bg-slate-50 transition-colors"
                     >
                         <span>Star on Github</span>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -276,17 +290,17 @@ function Playground() {
                         href="https://docs.self.xyz"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="h-[36px] px-[16px] py-[8px] bg-[#0f172a] text-white rounded-[6px] flex items-center text-[14px] font-bold hover:bg-slate-800 transition-colors"
+                        className="h-[36px] px-[12px] md:px-[16px] py-[8px] bg-[#0f172a] text-white rounded-[6px] flex items-center text-[13px] md:text-[14px] font-bold hover:bg-slate-800 transition-colors"
                     >
-                        Documentation
+                        Docs
                     </a>
                 </div>
             </nav>
 
             {/* Main Content */}
-            <div className="flex-1 flex flex-col lg:flex-row pt-[10px] pr-[20px] pb-[70px] rounded-[10px] w-full">
+            <div className="flex-1 flex flex-col lg:flex-row pt-[10px] px-[12px] pb-[40px] md:pr-[20px] md:px-0 rounded-[10px] w-full">
                 {/* Left Column - Config */}
-                <div className="w-full lg:w-[530px] lg:shrink-0 overflow-y-auto flex flex-col gap-[30px] px-[40px] py-[60px]">
+                <div className="w-full lg:w-[530px] lg:shrink-0 overflow-y-auto flex flex-col gap-[20px] px-[16px] py-[30px] md:gap-[30px] md:px-[40px] md:py-[60px]">
                     {/* Title */}
                     <div className="pb-[20px]">
                         <h1 className="font-advercase text-[28px] font-normal text-black tracking-[1px]">Proof Request Playground</h1>
@@ -327,10 +341,8 @@ function Playground() {
                                 <div className="flex flex-col gap-[12px] w-full">
                                     <button
                                         onClick={() => {
-                                            const url = window.prompt('Enter the URL of your app icon (PNG, 400x400):', appIconUrl);
-                                            if (url && url.trim()) {
-                                                setAppIconUrl(url.trim());
-                                            }
+                                            setIconUrlInput(appIconUrl);
+                                            setShowIconPopover(prev => !prev);
                                         }}
                                         className="h-[36px] px-[16px] text-[14px] font-medium bg-black text-white rounded-[5px] hover:bg-slate-800 transition-colors shrink-0 w-fit"
                                     >
@@ -354,8 +366,8 @@ function Playground() {
                     {/* Personal Information */}
                     <div className="flex flex-col gap-[10px]">
                         <SectionLabel label="Personal Information" tooltip="Select which passport fields to request from the user" />
-                        <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-[6px] p-[20px]">
-                            <div className="flex gap-[12px]">
+                        <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-[6px] p-[16px] md:p-[20px]">
+                            <div className="flex flex-col gap-[12px] sm:flex-row">
                                 <div className="flex-1 flex flex-col gap-[12px]">
                                     <CircleCheckbox
                                         checked={!!disclosures.issuing_state}
@@ -402,7 +414,7 @@ function Playground() {
                     {/* Verification Rules */}
                     <div className="flex flex-col gap-[10px]">
                         <SectionLabel label="Verification Rules" tooltip="Set additional verification requirements beyond disclosure" />
-                        <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-[6px] p-[20px] flex flex-col gap-[22px] w-fit">
+                        <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-[6px] p-[16px] md:p-[20px] flex flex-col gap-[22px] w-full md:w-fit">
                             {/* Minimum Age */}
                             <div className="border-b border-[#cbd5e1] pb-[20px] flex flex-col gap-[10px]">
                                 <span className="text-[14px] font-medium text-black uppercase">Minimum Age</span>
@@ -451,16 +463,16 @@ function Playground() {
                 </div>
 
                 {/* Right Column - Preview */}
-                <div className="flex-1 bg-[#f8fafc] rounded-[10px] border border-[#e2e8f0] flex flex-col items-center pt-[10px] pb-[20px] min-h-[600px]">
+                <div className="flex-1 bg-[#f8fafc] rounded-[10px] border border-[#e2e8f0] flex flex-col items-center pt-[10px] pb-[20px] min-h-[400px] md:min-h-[600px]">
                     {/* Preview Tab Bar */}
-                    <div className="flex items-center justify-end gap-[10px] px-[20px] pt-[10px] w-full shrink-0">
-                        <div className="flex-1 flex items-center gap-[20px] h-[36px]">
-                            <span className="text-[14px] font-medium text-black uppercase tracking-[0.98px]">preview:</span>
+                    <div className="flex flex-col gap-[8px] px-[12px] pt-[10px] w-full shrink-0 md:flex-row md:items-center md:justify-end md:gap-[10px] md:px-[20px]">
+                        <div className="flex items-center gap-[12px] h-[36px] overflow-x-auto md:flex-1 md:gap-[20px]">
+                            <span className="text-[12px] md:text-[14px] font-medium text-black uppercase tracking-[0.98px] shrink-0">preview:</span>
                             {previewTabs.map(tab => (
                                 <button
                                     key={tab.id}
                                     onClick={() => tab.enabled && setPreviewTab(tab.id)}
-                                    className={`h-full flex items-center text-[14px] font-medium transition-colors ${previewTab === tab.id
+                                    className={`h-full flex items-center text-[13px] md:text-[14px] font-medium transition-colors whitespace-nowrap shrink-0 ${previewTab === tab.id
                                         ? 'text-[#2563eb] border-b-2 border-[#2563eb]'
                                         : tab.enabled
                                             ? 'text-[#94a3b8] hover:text-slate-700'
@@ -473,7 +485,7 @@ function Playground() {
                             ))}
                         </div>
                         <button
-                            className="h-[36px] px-[16px] py-[8px] text-[14px] font-bold bg-[#2563eb] text-white rounded-[6px] hover:bg-blue-700 transition-colors shrink-0"
+                            className="hidden md:flex h-[36px] px-[16px] py-[8px] text-[14px] font-bold bg-[#2563eb] text-white rounded-[6px] hover:bg-blue-700 transition-colors shrink-0"
                         >
                             Connect a Wallet
                         </button>
@@ -482,13 +494,21 @@ function Playground() {
                     {/* QR Code Area */}
                     <div className="flex-1 flex flex-col items-center justify-center w-full">
                         {selfApp ? (
-                            <SelfQRcodeWrapper
-                                variant='desktop'
-                                selfApp={selfApp}
-                                onSuccess={() => console.log('Verification successful')}
-                                darkMode={false}
-                                onError={() => console.error('Error generating QR code')}
-                            />
+                            <>
+                                <SelfQRcodeWrapper
+                                    key={JSON.stringify(selfApp)}
+                                    variant={previewTab === 'mobile' ? 'mobile' : 'desktop'}
+                                    selfApp={selfApp}
+                                    onSuccess={() => console.log('Verification successful')}
+                                    darkMode={false}
+                                    onError={() => console.error('Error generating QR code')}
+                                />
+                                {previewTab === 'mobile' && universalLink && (
+                                    <div className="mt-[40px] min-w-[300px]">
+                                        <SelfDeepLinkButton href={universalLink} />
+                                    </div>
+                                )}
+                            </>
                         ) : (
                             <div className="flex items-center gap-2 text-sm text-[#94a3b8]">
                                 <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
@@ -513,6 +533,52 @@ function Playground() {
                     </div>
                 </div>
             </div>
+
+            {/* Icon URL Popover */}
+            {showIconPopover && (
+                <div className="fixed inset-0 z-50" onClick={() => setShowIconPopover(false)}>
+                    <div
+                        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border border-[#e2e8f0] rounded-[6px] shadow-lg p-[16px] flex flex-col gap-[12px] w-[360px]"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <label className="text-[13px] font-medium text-black">Icon URL (PNG, 400x400)</label>
+                        <input
+                            type="url"
+                            value={iconUrlInput}
+                            onChange={(e) => setIconUrlInput(e.target.value)}
+                            placeholder="https://example.com/icon.png"
+                            className="h-[36px] px-[12px] border border-[#e2e8f0] rounded-[5px] text-[13px] text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                            autoFocus
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' && iconUrlInput.trim()) {
+                                    setAppIconUrl(iconUrlInput.trim());
+                                    setShowIconPopover(false);
+                                }
+                                if (e.key === 'Escape') setShowIconPopover(false);
+                            }}
+                        />
+                        <div className="flex gap-[8px] justify-end">
+                            <button
+                                onClick={() => setShowIconPopover(false)}
+                                className="h-[32px] px-[12px] text-[13px] font-medium border border-[#e2e8f0] rounded-[5px] text-[#64748b] hover:bg-slate-50 transition-colors"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={() => {
+                                    if (iconUrlInput.trim()) {
+                                        setAppIconUrl(iconUrlInput.trim());
+                                        setShowIconPopover(false);
+                                    }
+                                }}
+                                className="h-[32px] px-[12px] text-[13px] font-medium bg-black text-white rounded-[5px] hover:bg-slate-800 transition-colors"
+                            >
+                                Apply
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Country Selection Modal */}
             {showCountryModal && (
