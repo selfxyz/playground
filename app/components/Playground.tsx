@@ -174,8 +174,8 @@ function Playground() {
         const app = new SelfAppBuilder({
             appName: appName,
             scope: "self-playground",
-            endpoint: "https://playground.staging.self.xyz/api/verify",
-            endpointType: "staging_https",
+            endpoint: "https://playground.self.xyz/api/verify",
+            endpointType: "https",
             logoBase64: appIconUrl,
             userId,
             disclosures: {
