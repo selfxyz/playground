@@ -484,11 +484,11 @@ function Playground() {
                                 </button>
                             ))}
                         </div>
-                        <button
+                        {/* <button
                             className="hidden md:flex h-[36px] px-[16px] py-[8px] text-[14px] font-bold bg-[#2563eb] text-white rounded-[6px] hover:bg-blue-700 transition-colors shrink-0"
                         >
                             Connect a Wallet
-                        </button>
+                        </button> */}
                     </div>
 
                     {/* QR Code Area */}
