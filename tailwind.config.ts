@@ -12,6 +12,11 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        advercase: ['Advercase', 'sans-serif'],
+        din: ['DIN OT', 'Arial', 'Helvetica', 'sans-serif'],
+        'ibm-mono': ['var(--font-ibm-plex-mono)', 'monospace'],
+      },
     },
   },
   plugins: [],

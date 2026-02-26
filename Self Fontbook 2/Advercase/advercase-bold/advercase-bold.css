@@ -1,0 +1,27 @@
+/*
+Font: 		
+Style: 		
+URL: 		https://youworkforthem.com/font/T25140/advercase
+Foundry: 	Indieground Design
+Foundry: 	https://youworkforthem.com/designer/1494/indieground-design
+Copyright:	
+Version: 	17
+Created:	August 13, 2024
+License: 	https://www.youworkforthem.com/font-license 
+License: 	The WebFont(s) listed in this document must follow the YouWorkForThem
+			WebFont license rules. All other parties are strictly restricted 
+			from using the WebFonts(s) listed without a purchased license. 
+			All details above must always remain unaltered and visible in your CSS.
+*/
+
+@font-face {
+	font-family: 'Advercase-Bold';
+	src: url('advercase-bold.eot');
+	src: url('advercase-bold.eot?#iefix') format('embedded-opentype'),
+             url('advercase-bold.woff2') format('woff2'),
+	     url('advercase-bold.woff') format('woff'),
+	     url('advercase-bold.ttf') format('truetype'),
+	     url('advercase-bold.svg#youworkforthem') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
