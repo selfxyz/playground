@@ -2,20 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Advercase';
+  src: url('/fonts/advercase-regular.woff2') format('woff2'),
+       url('/fonts/advercase-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Advercase';
+  src: url('/fonts/advercase-bold.woff2') format('woff2'),
+       url('/fonts/advercase-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DIN OT';
+  src: url('/fonts/DINOT-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DIN OT';
+  src: url('/fonts/DINOT-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DIN OT';
+  src: url('/fonts/DINOT-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'DIN OT', Arial, Helvetica, sans-serif;
 }
