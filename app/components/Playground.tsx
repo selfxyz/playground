@@ -258,8 +258,6 @@ function Playground() {
     const previewTabs = [
         { id: 'desktop' as const, label: 'Desktop', enabled: true },
         { id: 'mobile' as const, label: 'Mobile', enabled: true },
-        { id: 'alternates' as const, label: 'Alternates', enabled: false },
-        { id: 'code' as const, label: 'Code Snippets', enabled: false },
     ];
 
     return (
@@ -271,8 +269,7 @@ function Playground() {
                 </div>
                 <div className="flex-1 flex items-center gap-[8px]">
                     <span className="h-[36px] px-[16px] pt-[10px] pb-[14px] text-[14px] font-medium text-white bg-black rounded-[5px] flex items-center justify-center">Playground</span>
-                    <a href="https://docs.self.xyz/quick-start" target="_blank" rel="noopener noreferrer" className="hidden md:flex h-[36px] px-[16px] pt-[10px] pb-[14px] text-[14px] font-medium text-[#64748b] rounded-[5px] hover:bg-slate-50 transition-colors items-center justify-center">Guides</a>
-                    <a href="https://discord.gg/self" target="_blank" rel="noopener noreferrer" className="hidden md:flex h-[36px] px-[16px] pt-[10px] pb-[14px] text-[14px] font-medium text-[#64748b] rounded-[5px] hover:bg-slate-50 transition-colors items-center justify-center">Community</a>
+                    <a href="https://docs.self.xyz/use-self/quickstart" target="_blank" rel="noopener noreferrer" className="hidden md:flex h-[36px] px-[16px] pt-[10px] pb-[14px] text-[14px] font-medium text-[#64748b] rounded-[5px] hover:bg-slate-50 transition-colors items-center justify-center">Guides</a>
                 </div>
                 <div className="flex items-center gap-[8px] shrink-0">
                     <a
