@@ -30,6 +30,22 @@ const SelfDeepLinkButton = dynamic(
   { ssr: false },
 );
 
+const DEFAULT_ICON_URL =
+  'https://image2url.com/r2/default/images/1772123009674-14365df5-cc03-433d-9c21-814d43ad2fb8.png';
+
+// Only allow http(s) URLs into <img src> / QR payload to block javascript: and data: vectors (CodeQL).
+function sanitizeIconUrl(candidate: string): string {
+  try {
+    const parsed = new URL(candidate);
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+      return parsed.toString();
+    }
+  } catch {
+    // fall through
+  }
+  return DEFAULT_ICON_URL;
+}
+
 function Playground() {
   const [userId, setUserId] = useState<string | null>(null);
   const [savingOptions, setSavingOptions] = useState(false);
@@ -37,9 +53,7 @@ function Playground() {
   const [token, setToken] = useState<string | null>(null);
   const [isFetchingToken, setIsFetchingToken] = useState(false);
   const [appName, setAppName] = useState('Self Playground');
-  const [appIconUrl, setAppIconUrl] = useState(
-    'https://image2url.com/r2/default/images/1772123009674-14365df5-cc03-433d-9c21-814d43ad2fb8.png',
-  );
+  const [appIconUrl, setAppIconUrl] = useState(DEFAULT_ICON_URL);
   const [previewTab, setPreviewTab] = useState<
     'desktop' | 'mobile' | 'alternates' | 'code'
   >('desktop');
@@ -681,7 +695,7 @@ function Playground() {
               autoFocus
               onKeyDown={e => {
                 if (e.key === 'Enter' && iconUrlInput.trim()) {
-                  setAppIconUrl(iconUrlInput.trim());
+                  setAppIconUrl(sanitizeIconUrl(iconUrlInput.trim()));
                   setShowIconPopover(false);
                 }
                 if (e.key === 'Escape') setShowIconPopover(false);
@@ -697,7 +711,7 @@ function Playground() {
               <button
                 onClick={() => {
                   if (iconUrlInput.trim()) {
-                    setAppIconUrl(iconUrlInput.trim());
+                    setAppIconUrl(sanitizeIconUrl(iconUrlInput.trim()));
                     setShowIconPopover(false);
                   }
                 }}
