@@ -1,132 +1,130 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { SelfAppDisclosureConfig } from "@selfxyz/common";
-import {
-  countryCodes,
-  SelfBackendVerifier,
-  AllIds,
-} from "@selfxyz/core";
-import { createConfigStore } from "@/lib/configStore";
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+import type { SelfAppDisclosureConfig } from '@selfxyz/common';
+import { AllIds, countryCodes, SelfBackendVerifier } from '@selfxyz/core';
+
+import { createConfigStore } from '@/lib/configStore';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     try {
       const { attestationId, proof, publicSignals, userContextData } = req.body;
 
       if (!proof || !publicSignals || !attestationId || !userContextData) {
         return res.status(400).json({
           message:
-            "Proof, publicSignals, attestationId and userContextData are required",
+            'Proof, publicSignals, attestationId and userContextData are required',
         });
       }
 
       const configStore = createConfigStore();
 
       const selfBackendVerifier = new SelfBackendVerifier(
-        "self-playground",
-        "https://playground.self.xyz/api/verify",
+        'self-playground',
+        'https://playground.self.xyz/api/verify',
         false,
         AllIds,
         configStore,
-        "uuid"
+        'uuid',
       );
 
       const result = await selfBackendVerifier.verify(
         attestationId,
         proof,
         publicSignals,
-        userContextData
+        userContextData,
       );
 
       if (!result.isValidDetails.isMinimumAgeValid) {
         return res.status(200).json({
-          status: "error",
+          status: 'error',
           result: false,
-          reason: "Minimum age verification failed",
+          reason: 'Minimum age verification failed',
           details: result.isValidDetails,
         });
       }
 
       if (result.isValidDetails.isOfacValid) {
         return res.status(200).json({
-          status: "error",
+          status: 'error',
           result: false,
-          reason: "OFAC verification failed",
+          reason: 'OFAC verification failed',
           details: result.isValidDetails,
         });
       }
 
       if (!result.isValidDetails.isValid) {
         return res.status(200).json({
-          status: "error",
+          status: 'error',
           result: false,
-          reason: "Verification failed",
+          reason: 'Verification failed',
           details: result.isValidDetails,
         });
       }
 
       const saveOptions = (await configStore.getConfig(
-        result.userData.userIdentifier
+        result.userData.userIdentifier,
       )) as unknown as SelfAppDisclosureConfig;
 
       if (result.isValidDetails.isValid) {
         const filteredSubject = { ...result.discloseOutput };
 
         if (!saveOptions.issuing_state && filteredSubject) {
-          filteredSubject.issuingState = "Not disclosed";
+          filteredSubject.issuingState = 'Not disclosed';
         }
         if (!saveOptions.name && filteredSubject) {
-          filteredSubject.name = "Not disclosed";
+          filteredSubject.name = 'Not disclosed';
         }
         if (!saveOptions.nationality && filteredSubject) {
-          filteredSubject.nationality = "Not disclosed";
+          filteredSubject.nationality = 'Not disclosed';
         }
         if (!saveOptions.date_of_birth && filteredSubject) {
-          filteredSubject.dateOfBirth = "Not disclosed";
+          filteredSubject.dateOfBirth = 'Not disclosed';
         }
         if (!saveOptions.passport_number && filteredSubject) {
-          filteredSubject.idNumber = "Not disclosed";
+          filteredSubject.idNumber = 'Not disclosed';
         }
         if (!saveOptions.gender && filteredSubject) {
-          filteredSubject.gender = "Not disclosed";
+          filteredSubject.gender = 'Not disclosed';
         }
         if (!saveOptions.expiry_date && filteredSubject) {
-          filteredSubject.expiryDate = "Not disclosed";
+          filteredSubject.expiryDate = 'Not disclosed';
         }
 
         res.status(200).json({
-          status: "success",
+          status: 'success',
           result: result.isValidDetails.isValid,
           credentialSubject: filteredSubject,
           verificationOptions: {
             minimumAge: saveOptions.minimumAge,
             ofac: saveOptions.ofac,
             excludedCountries: saveOptions.excludedCountries?.map(
-              (countryName) => {
+              countryName => {
                 const entry = Object.entries(countryCodes).find(
-                  ([_, name]) => name === countryName
+                  ([_, name]) => name === countryName,
                 );
                 return entry ? entry[0] : countryName;
-              }
+              },
             ),
           },
         });
       } else {
         res.status(200).json({
-          status: "error",
+          status: 'error',
           result: result.isValidDetails.isValid,
-          reason: "Proof verification failed",
+          reason: 'Proof verification failed',
           details: result,
         });
       }
     } catch (error) {
-      console.error("Error verifying proof:", error);
+      console.error('Error verifying proof:', error);
       return res.status(200).json({
-        status: "error",
+        status: 'error',
         result: false,
-        reason: error instanceof Error ? error.message : "Unknown error",
+        reason: error instanceof Error ? error.message : 'Unknown error',
       });
     }
   }

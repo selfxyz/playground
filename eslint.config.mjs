@@ -1,10 +1,10 @@
+import prettierConfig from 'eslint-config-prettier';
+import importPlugin from 'eslint-plugin-import';
+import prettierPlugin from 'eslint-plugin-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import importPlugin from 'eslint-plugin-import';
-import prettierPlugin from 'eslint-plugin-prettier';
-import prettierConfig from 'eslint-config-prettier';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -24,6 +24,7 @@ const eslintConfig = [
       'dist/',
       'public/',
       '*.js.map',
+      'next-env.d.ts',
     ],
   },
   {
@@ -63,10 +64,7 @@ const eslintConfig = [
       'import/no-unresolved': 'off',
 
       // Formatting / whitespace
-      'no-multiple-empty-lines': [
-        'error',
-        { max: 1, maxEOF: 0, maxBOF: 1 },
-      ],
+      'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0, maxBOF: 1 }],
       'prettier/prettier': ['warn', {}, { usePrettierrc: true }],
 
       // TypeScript

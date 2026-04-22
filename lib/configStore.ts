@@ -1,5 +1,6 @@
-import { IConfigStorage, VerificationConfig } from "@selfxyz/core";
-import { Redis } from "@upstash/redis";
+import { Redis } from '@upstash/redis';
+
+import type { IConfigStorage, VerificationConfig } from '@selfxyz/core';
 
 const TTL_SECONDS = 1800;
 
@@ -61,15 +62,15 @@ export function createConfigStore(): IConfigStorage {
   if (url && token) {
     return new KVConfigStore(url, token);
   }
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === 'production') {
     throw new Error(
-      "KV_REST_API_URL and KV_REST_API_TOKEN must be set in production"
+      'KV_REST_API_URL and KV_REST_API_TOKEN must be set in production',
     );
   }
   if (!warnedAboutFallback) {
     warnedAboutFallback = true;
     console.warn(
-      "[playground] KV_REST_API_URL/TOKEN not set — using in-memory config store (dev only)"
+      '[playground] KV_REST_API_URL/TOKEN not set — using in-memory config store (dev only)',
     );
   }
   return new InMemoryConfigStore();
