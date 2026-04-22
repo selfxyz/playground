@@ -7,12 +7,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { countries } from '@selfxyz/qrcode';
 import type {
-  type Country3LetterCode,
+  Country3LetterCode,
+  SelfApp,
+  SelfAppDisclosureConfig,
+} from '@selfxyz/sdk-common';
+import {
   countryCodes,
   getUniversalLink,
-  type SelfApp,
   SelfAppBuilder,
-  SelfAppDisclosureConfig,
 } from '@selfxyz/sdk-common';
 
 import CircleCheckbox from './CircleCheckbox';
