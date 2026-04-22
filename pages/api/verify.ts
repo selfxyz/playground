@@ -1,38 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { SelfAppDisclosureConfig } from "@selfxyz/common";
 import {
-  IConfigStorage,
-  VerificationConfig,
   countryCodes,
   SelfBackendVerifier,
   AllIds,
 } from "@selfxyz/core";
-import { Redis } from "@upstash/redis";
-
-export class KVConfigStore implements IConfigStorage {
-  private redis: Redis;
-
-  constructor(url: string, token: string) {
-    this.redis = new Redis({
-      url: url,
-      token: token,
-    });
-  }
-
-  async getActionId(userIdentifier: string, data: string): Promise<string> {
-    return userIdentifier;
-  }
-
-  async setConfig(id: string, config: VerificationConfig): Promise<boolean> {
-    await this.redis.setex(id, 1800, JSON.stringify(config));
-    return true;
-  }
-
-  async getConfig(id: string): Promise<VerificationConfig> {
-    const config = (await this.redis.get(id)) as VerificationConfig;
-    return config;
-  }
-}
+import { createConfigStore } from "@/lib/configStore";
 
 export default async function handler(
   req: NextApiRequest,
@@ -49,10 +22,7 @@ export default async function handler(
         });
       }
 
-      const configStore = new KVConfigStore(
-        process.env.KV_REST_API_URL!,
-        process.env.KV_REST_API_TOKEN!
-      );
+      const configStore = createConfigStore();
 
       const selfBackendVerifier = new SelfBackendVerifier(
         "self-playground",
