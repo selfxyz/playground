@@ -45,16 +45,20 @@ State is all local React hooks — no external state management.
 
 ### Key Patterns
 
-- `@selfxyz/qrcode` is externalized from server bundles via `next.config.ts` webpack config
+- `@selfxyz/qrcode` is externalized from server bundles via `next.config.js` webpack config
 - Session identity is a client-generated UUID (`userId`)
+- `SELF_ENV` is the single source of truth for staging vs production config; `next.config.js` re-exposes it to the client bundle
+- `SELF_VERIFY_ENDPOINT_OVERRIDE` can temporarily point both QR generation and verification at an ngrok/local endpoint
 - Environment variables for Redis come from Vercel's Upstash integration (see `.env.example`)
 
 ## Environment Variables
 
-```
-KV_URL              # Upstash Redis connection URL
-KV_REST_API_URL     # Upstash REST API endpoint
-KV_REST_API_TOKEN   # Redis read-write token
+```env
+SELF_ENV                     # optional; 'staging' on staging/local dev, unset for production
+SELF_VERIFY_ENDPOINT_OVERRIDE # optional; ngrok/local verify endpoint override
+KV_URL                       # Upstash Redis connection URL
+KV_REST_API_URL              # Upstash REST API endpoint
+KV_REST_API_TOKEN            # Redis read-write token
 KV_REST_API_READ_ONLY_TOKEN
 ```
 

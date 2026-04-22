@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, IBM_Plex_Mono } from 'next/font/google';
 
+import { getSelfEnvironmentConfig } from '@/lib/selfEnvironment';
+
 import './globals.css';
 
 const geistSans = Geist({
@@ -19,9 +21,14 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ['400', '500'],
 });
 
+const environmentConfig = getSelfEnvironmentConfig(
+  process.env.NEXT_PUBLIC_SELF_ENV,
+  process.env.NEXT_PUBLIC_SELF_VERIFY_ENDPOINT_OVERRIDE,
+);
+
 export const metadata: Metadata = {
-  title: 'Self Playground',
-  description: 'Self Playground',
+  title: environmentConfig.metadataTitle,
+  description: environmentConfig.metadataDescription,
 };
 
 export default function RootLayout({

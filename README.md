@@ -14,6 +14,14 @@ If you're looking for a simpler example that checks a set of fixed attributes, c
 
 - Fork the project and add it to your Vercel account.
 - On Vercel, in `Storage`, configure an Upstash For Redis database. Copy `.env.example` to `.env` and add your environment variables.
+- Environment routing:
+  `SELF_ENV` is the single source of truth for the active Self environment.
+  `next.config.js` re-exposes it to the client as `NEXT_PUBLIC_SELF_ENV`, so the QR payload and backend verifier stay aligned.
+  Set `SELF_ENV=staging` on the staging Vercel project only.
+  Leave `SELF_ENV` unset on the production Vercel project.
+  If you use Vercel Preview deployments to exercise staging behavior, set `SELF_ENV=staging` at the Preview scope too. Unset Preview vars on the production project will resolve to production behavior.
+  Local development defaults to staging when `SELF_ENV` is unset, and `.env.example` sets `SELF_ENV=staging` so `yarn dev` does not hit production endpoints by default.
+  `SELF_VERIFY_ENDPOINT_OVERRIDE` is optional and lets you override the verify endpoint for both client and server without editing tracked code.
 - Run the development server:
 ```bash
 npm run dev
@@ -28,8 +36,6 @@ bun dev
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-When developing locally, you can route the requests from the mobile app to your local machine by opening an ngrok endpoint using `ngrok http 3000` and replace `endpoint: "https://playground.self.xyz/api/verify"` in `app/page.tsx` with the newly generated url, that should look something like `endpoint: "https://198c-166-144-250-126.ngrok-free.app/api/verify"`.
+When developing locally, you can route the requests from the mobile app to your local machine by opening an ngrok endpoint using `ngrok http 3000` and setting `SELF_VERIFY_ENDPOINT_OVERRIDE` to the generated URL, for example `https://198c-166-144-250-126.ngrok-free.app/api/verify`.
 
-After you do that, make sure you also update the url passed to `SelfBackendVerifier` in `pages/api/verify.ts` with your new ngrok url. This is so the sdk can check the proof comes from the right url, and avoids replay attacks that could be used to deanonimize users.
-
-When deploying to Vercel, update those urls to match your Vercel deployment url.
+The QR payload endpoint and the `SelfBackendVerifier` endpoint must stay aligned or verification will fail because the SDK hashes the endpoint into the proof scope.

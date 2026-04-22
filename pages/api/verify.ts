@@ -4,6 +4,7 @@ import type { SelfAppDisclosureConfig } from '@selfxyz/common';
 import { AllIds, countryCodes, SelfBackendVerifier } from '@selfxyz/core';
 
 import { createConfigStore } from '@/lib/configStore';
+import { getSelfEnvironmentConfig } from '@/lib/selfEnvironment';
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,11 +22,15 @@ export default async function handler(
       }
 
       const configStore = createConfigStore();
+      const environmentConfig = getSelfEnvironmentConfig(
+        process.env.SELF_ENV,
+        process.env.SELF_VERIFY_ENDPOINT_OVERRIDE,
+      );
 
       const selfBackendVerifier = new SelfBackendVerifier(
         'self-playground',
-        'https://playground.self.xyz/api/verify',
-        false,
+        environmentConfig.verifyEndpoint,
+        environmentConfig.mockPassport,
         AllIds,
         configStore,
         'uuid',
