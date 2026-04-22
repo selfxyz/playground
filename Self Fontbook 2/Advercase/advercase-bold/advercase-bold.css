@@ -15,13 +15,14 @@ License: 	The WebFont(s) listed in this document must follow the YouWorkForThem
 */
 
 @font-face {
-	font-family: 'Advercase-Bold';
-	src: url('advercase-bold.eot');
-	src: url('advercase-bold.eot?#iefix') format('embedded-opentype'),
-             url('advercase-bold.woff2') format('woff2'),
-	     url('advercase-bold.woff') format('woff'),
-	     url('advercase-bold.ttf') format('truetype'),
-	     url('advercase-bold.svg#youworkforthem') format('svg');
-	font-weight: normal;
-	font-style: normal;
+  font-family: 'Advercase-Bold';
+  src: url('advercase-bold.eot');
+  src:
+    url('advercase-bold.eot?#iefix') format('embedded-opentype'),
+    url('advercase-bold.woff2') format('woff2'),
+    url('advercase-bold.woff') format('woff'),
+    url('advercase-bold.ttf') format('truetype'),
+    url('advercase-bold.svg#youworkforthem') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }

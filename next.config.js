@@ -7,7 +7,7 @@ const nextConfig = {
   webpack: (config, { isServer }) => {
     // Fix for packages that use 'document' in server context
     if (isServer) {
-      config.externals = [...(config.externals || []), "@selfxyz/qrcode"];
+      config.externals = [...(config.externals || []), '@selfxyz/qrcode'];
     }
 
     return config;
