@@ -63,7 +63,6 @@ function Playground() {
   const [appName, setAppName] = useState(environmentConfig.defaultAppName);
   const [appIconUrl, setAppIconUrl] = useState(DEFAULT_ICON_URL);
   const [lastRotatedAt, setLastRotatedAt] = useState<Date | null>(null);
-  const [rotationCount, setRotationCount] = useState(0);
   const [previewTab, setPreviewTab] = useState<
     'desktop' | 'mobile' | 'alternates' | 'code'
   >('desktop');
@@ -92,7 +91,6 @@ function Playground() {
       setToken(null);
       setUserId(uuidv4());
       setLastRotatedAt(new Date());
-      setRotationCount(c => c + 1);
     });
   }, []);
 
@@ -719,8 +717,7 @@ function Playground() {
             <span className="text-[11px] text-[#94a3b8] font-ibm-mono text-center">
               Next rotation in{' '}
               {String(Math.floor(secondsUntilRotation / 60)).padStart(2, '0')}:
-              {String(secondsUntilRotation % 60).padStart(2, '0')} · Rotations:{' '}
-              {rotationCount}
+              {String(secondsUntilRotation % 60).padStart(2, '0')}
               {lastRotatedAt
                 ? ` · last ${lastRotatedAt.toLocaleTimeString()}`
                 : ''}
