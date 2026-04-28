@@ -2,7 +2,13 @@
 
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { countries } from '@selfxyz/qrcode';
@@ -18,7 +24,9 @@ import {
 } from '@selfxyz/sdk-common';
 
 import { DEFAULT_ICON_URL, sanitizeIconUrl } from '@/lib/iconUrl';
+import { createLatestRequestTracker } from '@/lib/latestRequest';
 import { getSelfEnvironmentConfig } from '@/lib/selfEnvironment';
+import { scheduleSessionRefresh } from '@/lib/sessionRefresh';
 
 import CircleCheckbox from './CircleCheckbox';
 import SectionLabel from './SectionLabel';
@@ -43,7 +51,7 @@ function Playground() {
   const [savingOptions, setSavingOptions] = useState(false);
   const [universalLink, setUniversalLink] = useState('');
   const [token, setToken] = useState<string | null>(null);
-  const [isFetchingToken, setIsFetchingToken] = useState(false);
+  const tokenRequestRef = useRef(createLatestRequestTracker());
   const [appName, setAppName] = useState(environmentConfig.defaultAppName);
   const [appIconUrl, setAppIconUrl] = useState(DEFAULT_ICON_URL);
   const [previewTab, setPreviewTab] = useState<
@@ -62,6 +70,13 @@ function Playground() {
 
   useEffect(() => {
     setUserId(uuidv4());
+  }, []);
+
+  useEffect(() => {
+    return scheduleSessionRefresh(() => {
+      setToken(null);
+      setUserId(uuidv4());
+    });
   }, []);
 
   const [disclosures, setDisclosures] = useState<SelfAppDisclosureConfig>({
@@ -269,22 +284,16 @@ function Playground() {
   };
 
   useEffect(() => {
-    let cancelled = false;
-    const prefetch = async () => {
-      if (!userId || !universalLink) return;
-      if (token || isFetchingToken) return;
-      setIsFetchingToken(true);
-      const t = await sendPayload();
-      if (!cancelled) {
-        setToken(t || null);
-      }
-      setIsFetchingToken(false);
-    };
-    prefetch();
+    if (!userId || !universalLink) return;
+    const tracker = tokenRequestRef.current;
+    const requestId = tracker.next();
+    sendPayload().then(t => {
+      if (!tracker.isLatest(requestId)) return;
+      setToken(t || null);
+    });
     return () => {
-      cancelled = true;
+      tracker.next();
     };
-    // token/isFetchingToken are read via closure as a guard; adding them as deps would retrigger the prefetch.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, universalLink]);
 
