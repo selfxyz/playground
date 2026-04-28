@@ -37,6 +37,7 @@ const environmentConfig = getSelfEnvironmentConfig(
   process.env.NEXT_PUBLIC_SELF_ENV,
   process.env.NEXT_PUBLIC_SELF_VERIFY_ENDPOINT_OVERRIDE,
 );
+const isStagingEnv = environmentConfig.mockPassport;
 
 function Playground() {
   const [userId, setUserId] = useState<string | null>(null);
@@ -329,7 +330,7 @@ function Playground() {
           <Image
             width={80}
             height={30}
-            src="/self.svg"
+            src={isStagingEnv ? '/self-staging.svg' : '/self.svg'}
             alt="Self Logo"
             className="h-[30px] w-[80px]"
           />
@@ -338,7 +339,7 @@ function Playground() {
           <span className="h-[36px] px-[16px] pt-[10px] pb-[14px] text-[14px] font-medium text-white bg-black rounded-[5px] flex items-center justify-center">
             Playground
           </span>
-          {environmentConfig.mockPassport && (
+          {isStagingEnv && (
             <span
               className="h-[36px] px-[10px] text-[12px] font-bold tracking-[0.5px] uppercase text-[#92400e] bg-[#fef3c7] border border-[#f59e0b] rounded-[5px] flex items-center justify-center"
               title="Staging environment — does not produce live credentials"
@@ -615,7 +616,7 @@ function Playground() {
 
           {/* QR Code Area */}
           <div className="flex-1 flex flex-col items-center justify-center w-full">
-            {environmentConfig.mockPassport && (
+            {isStagingEnv && (
               <div className="mb-[16px] px-[12px] py-[6px] bg-[#fef3c7] border border-[#f59e0b] rounded-[5px] text-[12px] font-medium text-[#92400e] text-center max-w-[320px]">
                 Test verification — does not produce live credentials. Use a
                 mock passport in the Self app.
