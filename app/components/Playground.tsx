@@ -428,8 +428,8 @@ function Playground() {
               label="Test Application Icon"
               tooltip="Icon displayed alongside your app name"
             />
-            <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-[6px] flex gap-[12px] items-end overflow-clip pb-[20px] pl-[20px] pt-[50px] relative">
-              <div className="flex-1 flex flex-col gap-[12px] items-start pr-[30px] max-w-[220px]">
+            <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-[6px] flex gap-[12px] items-end overflow-clip pb-[20px] pl-[20px] pt-[30px] sm:pt-[50px] relative min-h-[220px]">
+              <div className="flex-1 flex flex-col gap-[12px] items-start pr-[140px] sm:pr-[30px] sm:max-w-[220px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={appIconUrl}
@@ -458,7 +458,7 @@ function Playground() {
                 alt="Phone mockup preview"
                 width={968}
                 height={784}
-                className="absolute right-0 bottom-0 h-full w-auto object-contain"
+                className="absolute right-0 bottom-0 h-full w-[180px] sm:w-auto object-contain object-right-bottom pointer-events-none"
               />
             </div>
           </div>
@@ -625,7 +625,7 @@ function Playground() {
           <div className="flex-1 flex flex-col items-center justify-center w-full">
             {isStagingEnv && (
               <span
-                className="mb-[16px] h-[28px] px-[10px] text-[12px] font-bold tracking-[0.5px] uppercase text-[#92400e] bg-[#fef3c7] border border-[#f59e0b] rounded-[5px] inline-flex items-center justify-center"
+                className="mt-[20px] mb-[16px] md:mt-0 h-[28px] px-[10px] text-[12px] font-bold tracking-[0.5px] uppercase text-[#92400e] bg-[#fef3c7] border border-[#f59e0b] rounded-[5px] inline-flex items-center justify-center"
                 title="Staging environment — does not produce live credentials"
               >
                 Staging
