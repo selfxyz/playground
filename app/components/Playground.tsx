@@ -30,8 +30,8 @@ import {
   getSelfEnvironmentConfig,
 } from '@/lib/selfEnvironment';
 import {
-  SESSION_REFRESH_INTERVAL_MS,
   scheduleSessionRefresh,
+  SESSION_REFRESH_INTERVAL_MS,
 } from '@/lib/sessionRefresh';
 
 import CircleCheckbox from './CircleCheckbox';
@@ -95,6 +95,24 @@ function Playground() {
       setRotationCount(c => c + 1);
     });
   }, []);
+
+  const [secondsUntilRotation, setSecondsUntilRotation] = useState(
+    Math.floor(SESSION_REFRESH_INTERVAL_MS / 1000),
+  );
+  useEffect(() => {
+    if (!lastRotatedAt) return;
+    const tick = () => {
+      const elapsed = Date.now() - lastRotatedAt.getTime();
+      const remaining = Math.max(
+        0,
+        Math.ceil((SESSION_REFRESH_INTERVAL_MS - elapsed) / 1000),
+      );
+      setSecondsUntilRotation(remaining);
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [lastRotatedAt]);
 
   const [disclosures, setDisclosures] = useState<SelfAppDisclosureConfig>({
     issuing_state: false,
@@ -699,7 +717,10 @@ function Playground() {
               User ID: {userId.substring(0, 8)}...
             </span>
             <span className="text-[11px] text-[#94a3b8] font-ibm-mono text-center">
-              Rotations: {rotationCount}
+              Next rotation in{' '}
+              {String(Math.floor(secondsUntilRotation / 60)).padStart(2, '0')}:
+              {String(secondsUntilRotation % 60).padStart(2, '0')} · Rotations:{' '}
+              {rotationCount}
               {lastRotatedAt
                 ? ` · last ${lastRotatedAt.toLocaleTimeString()}`
                 : ''}
