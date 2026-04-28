@@ -18,7 +18,10 @@ import {
 } from '@selfxyz/sdk-common';
 
 import { DEFAULT_ICON_URL, sanitizeIconUrl } from '@/lib/iconUrl';
-import { getSelfEnvironmentConfig } from '@/lib/selfEnvironment';
+import {
+  getSelfEnvironment,
+  getSelfEnvironmentConfig,
+} from '@/lib/selfEnvironment';
 
 import CircleCheckbox from './CircleCheckbox';
 import SectionLabel from './SectionLabel';
@@ -37,7 +40,8 @@ const environmentConfig = getSelfEnvironmentConfig(
   process.env.NEXT_PUBLIC_SELF_ENV,
   process.env.NEXT_PUBLIC_SELF_VERIFY_ENDPOINT_OVERRIDE,
 );
-const isStagingEnv = environmentConfig.mockPassport;
+const isStagingEnv =
+  getSelfEnvironment(process.env.NEXT_PUBLIC_SELF_ENV) === 'staging';
 
 function Playground() {
   const [userId, setUserId] = useState<string | null>(null);
