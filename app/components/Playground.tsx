@@ -2,7 +2,13 @@
 
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { countries } from '@selfxyz/qrcode';
@@ -18,10 +24,15 @@ import {
 } from '@selfxyz/sdk-common';
 
 import { DEFAULT_ICON_URL, sanitizeIconUrl } from '@/lib/iconUrl';
+import { createLatestRequestTracker } from '@/lib/latestRequest';
 import {
   getSelfEnvironment,
   getSelfEnvironmentConfig,
 } from '@/lib/selfEnvironment';
+import {
+  scheduleSessionRefresh,
+  SESSION_REFRESH_INTERVAL_MS,
+} from '@/lib/sessionRefresh';
 
 import CircleCheckbox from './CircleCheckbox';
 import SectionLabel from './SectionLabel';
@@ -48,9 +59,10 @@ function Playground() {
   const [savingOptions, setSavingOptions] = useState(false);
   const [universalLink, setUniversalLink] = useState('');
   const [token, setToken] = useState<string | null>(null);
-  const [isFetchingToken, setIsFetchingToken] = useState(false);
+  const tokenRequestRef = useRef(createLatestRequestTracker());
   const [appName, setAppName] = useState(environmentConfig.defaultAppName);
   const [appIconUrl, setAppIconUrl] = useState(DEFAULT_ICON_URL);
+  const [lastRotatedAt, setLastRotatedAt] = useState<Date | null>(null);
   const [previewTab, setPreviewTab] = useState<
     'desktop' | 'mobile' | 'alternates' | 'code'
   >('desktop');
@@ -67,10 +79,38 @@ function Playground() {
 
   useEffect(() => {
     setUserId(uuidv4());
+    setLastRotatedAt(new Date());
     if (isStagingEnv && typeof window !== 'undefined') {
       setAppIconUrl(`${window.location.origin}/appicon-staging.svg`);
     }
   }, []);
+
+  useEffect(() => {
+    return scheduleSessionRefresh(() => {
+      tokenRequestRef.current.invalidate();
+      setToken(null);
+      setUserId(uuidv4());
+      setLastRotatedAt(new Date());
+    });
+  }, []);
+
+  const [secondsUntilRotation, setSecondsUntilRotation] = useState(
+    Math.floor(SESSION_REFRESH_INTERVAL_MS / 1000),
+  );
+  useEffect(() => {
+    if (!lastRotatedAt) return;
+    const tick = () => {
+      const elapsed = Date.now() - lastRotatedAt.getTime();
+      const remaining = Math.max(
+        0,
+        Math.ceil((SESSION_REFRESH_INTERVAL_MS - elapsed) / 1000),
+      );
+      setSecondsUntilRotation(remaining);
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [lastRotatedAt]);
 
   const [disclosures, setDisclosures] = useState<SelfAppDisclosureConfig>({
     issuing_state: false,
@@ -277,22 +317,16 @@ function Playground() {
   };
 
   useEffect(() => {
-    let cancelled = false;
-    const prefetch = async () => {
-      if (!userId || !universalLink) return;
-      if (token || isFetchingToken) return;
-      setIsFetchingToken(true);
-      const t = await sendPayload();
-      if (!cancelled) {
-        setToken(t || null);
-      }
-      setIsFetchingToken(false);
-    };
-    prefetch();
+    if (!userId || !universalLink) return;
+    const tracker = tokenRequestRef.current;
+    const requestId = tracker.next();
+    sendPayload().then(t => {
+      if (!tracker.isLatest(requestId)) return;
+      setToken(t || null);
+    });
     return () => {
-      cancelled = true;
+      tracker.invalidate();
     };
-    // token/isFetchingToken are read via closure as a guard; adding them as deps would retrigger the prefetch.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, universalLink]);
 
@@ -679,6 +713,14 @@ function Playground() {
           <div className="flex flex-col gap-[10px] items-center shrink-0">
             <span className="text-[12px] text-[#94a3b8] font-ibm-mono font-medium text-center">
               User ID: {userId.substring(0, 8)}...
+            </span>
+            <span className="text-[11px] text-[#94a3b8] font-ibm-mono text-center">
+              Next rotation in{' '}
+              {String(Math.floor(secondsUntilRotation / 60)).padStart(2, '0')}:
+              {String(secondsUntilRotation % 60).padStart(2, '0')}
+              {lastRotatedAt
+                ? ` · last ${lastRotatedAt.toLocaleTimeString()}`
+                : ''}
             </span>
             <div className="bg-[#94a3b8] px-[6px] py-[4px] rounded-[4px]">
               <span className="text-[12px] font-medium text-white text-center">
