@@ -82,8 +82,11 @@ describe('applyDisclosureFilter', () => {
     });
   });
 
-  it('handles an empty credential subject without throwing', () => {
-    expect(applyDisclosureFilter(undefined, allDisclosuresEnabled)).toEqual({});
+  it('passes through nullish credential subjects without fabricating fields', () => {
+    expect(
+      applyDisclosureFilter(undefined, allDisclosuresEnabled),
+    ).toBeUndefined();
+    expect(applyDisclosureFilter(null, allDisclosuresEnabled)).toBeNull();
   });
 });
 

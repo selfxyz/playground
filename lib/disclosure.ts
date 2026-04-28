@@ -15,8 +15,11 @@ type DisclosedCredentialSubject = {
 export function applyDisclosureFilter(
   credentialSubject: DisclosedCredentialSubject | null | undefined,
   saveOptions: SelfAppDisclosureConfig,
-): DisclosedCredentialSubject {
-  const filteredSubject = { ...(credentialSubject ?? {}) };
+): DisclosedCredentialSubject | null | undefined {
+  if (credentialSubject == null) {
+    return credentialSubject;
+  }
+  const filteredSubject = { ...credentialSubject };
 
   if (!saveOptions.issuing_state) {
     filteredSubject.issuingState = 'Not disclosed';

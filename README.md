@@ -22,6 +22,7 @@ If you're looking for a simpler example that checks a set of fixed attributes, c
   If you use Vercel Preview deployments to exercise staging behavior, set `SELF_ENV=staging` at the Preview scope too. Unset Preview vars on the production project will resolve to production behavior.
   Local development defaults to staging when `SELF_ENV` is unset, and `.env.example` sets `SELF_ENV=staging` so `yarn dev` does not hit production endpoints by default.
   `SELF_VERIFY_ENDPOINT_OVERRIDE` is optional and lets you override the verify endpoint for both client and server without editing tracked code.
+  Note: Vercel only applies environment variable changes to new deployments — both server and client will keep using the previous values until you redeploy. `NEXT_PUBLIC_SELF_ENV` and `NEXT_PUBLIC_SELF_VERIFY_ENDPOINT_OVERRIDE` are additionally inlined into the client bundle at build time, so the client cannot pick up changes any earlier than that redeploy either.
 - Run the development server:
 ```bash
 npm run dev

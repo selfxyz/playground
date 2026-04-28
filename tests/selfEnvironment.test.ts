@@ -45,8 +45,11 @@ describe('getSelfEnvironment', () => {
   it('treats capitalized and whitespace-padded values as invalid input', () => {
     setNodeEnv('development');
 
-    expect(getSelfEnvironment('Staging')).toBe('staging');
-    expect(getSelfEnvironment(' staging ')).toBe('staging');
+    // Unrecognized values fall through to the NODE_ENV default; in dev that
+    // happens to be 'staging', so we use a value that would otherwise resolve
+    // to 'production' to actually prove the rejection path.
+    expect(getSelfEnvironment('Production')).toBe('staging');
+    expect(getSelfEnvironment(' production ')).toBe('staging');
 
     setNodeEnv('production');
 
