@@ -21,7 +21,16 @@ jobs:
 
       - name: Sync staging to main
         run: |
-          git fetch origin staging main
+          git fetch origin main
+          if git ls-remote --exit-code --heads origin staging >/dev/null 2>&1; then
+            git fetch origin staging
+          else
+            echo "staging branch does not exist yet; creating it from main"
+            git push origin origin/main:refs/heads/staging
+            echo "Created staging at $(git rev-parse origin/main)"
+            exit 0
+          fi
+
           behind=$(git rev-list --count origin/staging..origin/main)
           ahead=$(git rev-list --count origin/main..origin/staging)
           echo "staging is $behind commits behind, $ahead commits ahead of main"
