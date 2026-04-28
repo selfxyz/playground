@@ -1,0 +1,50 @@
+name: Sync staging with main
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: sync-staging
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync staging to main
+        run: |
+          git fetch origin main
+          if git ls-remote --exit-code --heads origin staging >/dev/null 2>&1; then
+            git fetch origin staging
+          else
+            echo "staging branch does not exist yet; creating it from main"
+            git push origin origin/main:refs/heads/staging
+            echo "Created staging at $(git rev-parse origin/main)"
+            exit 0
+          fi
+
+          behind=$(git rev-list --count origin/staging..origin/main)
+          ahead=$(git rev-list --count origin/main..origin/staging)
+          echo "staging is $behind commits behind, $ahead commits ahead of main"
+
+          if [ "$ahead" != "0" ]; then
+            echo "staging has $ahead unique commits and no longer mirrors main"
+            echo "Realign staging to main before re-running this workflow."
+            exit 1
+          fi
+
+          if [ "$behind" = "0" ]; then
+            echo "staging already matches main"
+            exit 0
+          fi
+
+          git push origin origin/main:refs/heads/staging
+          echo "Updated staging to $(git rev-parse origin/main)"

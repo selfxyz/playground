@@ -1,6 +1,7 @@
 export type LatestRequestTracker = {
   next: () => number;
   isLatest: (id: number) => boolean;
+  invalidate: () => void;
 };
 
 export function createLatestRequestTracker(): LatestRequestTracker {
@@ -8,5 +9,8 @@ export function createLatestRequestTracker(): LatestRequestTracker {
   return {
     next: () => ++currentId,
     isLatest: (id: number) => id === currentId,
+    invalidate: () => {
+      currentId += 1;
+    },
   };
 }

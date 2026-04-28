@@ -25,8 +25,14 @@ import {
 
 import { DEFAULT_ICON_URL, sanitizeIconUrl } from '@/lib/iconUrl';
 import { createLatestRequestTracker } from '@/lib/latestRequest';
-import { getSelfEnvironmentConfig } from '@/lib/selfEnvironment';
-import { scheduleSessionRefresh } from '@/lib/sessionRefresh';
+import {
+  getSelfEnvironment,
+  getSelfEnvironmentConfig,
+} from '@/lib/selfEnvironment';
+import {
+  SESSION_REFRESH_INTERVAL_MS,
+  scheduleSessionRefresh,
+} from '@/lib/sessionRefresh';
 
 import CircleCheckbox from './CircleCheckbox';
 import SectionLabel from './SectionLabel';
@@ -45,6 +51,8 @@ const environmentConfig = getSelfEnvironmentConfig(
   process.env.NEXT_PUBLIC_SELF_ENV,
   process.env.NEXT_PUBLIC_SELF_VERIFY_ENDPOINT_OVERRIDE,
 );
+const isStagingEnv =
+  getSelfEnvironment(process.env.NEXT_PUBLIC_SELF_ENV) === 'staging';
 
 function Playground() {
   const [userId, setUserId] = useState<string | null>(null);
@@ -54,6 +62,8 @@ function Playground() {
   const tokenRequestRef = useRef(createLatestRequestTracker());
   const [appName, setAppName] = useState(environmentConfig.defaultAppName);
   const [appIconUrl, setAppIconUrl] = useState(DEFAULT_ICON_URL);
+  const [lastRotatedAt, setLastRotatedAt] = useState<Date | null>(null);
+  const [rotationCount, setRotationCount] = useState(0);
   const [previewTab, setPreviewTab] = useState<
     'desktop' | 'mobile' | 'alternates' | 'code'
   >('desktop');
@@ -70,12 +80,19 @@ function Playground() {
 
   useEffect(() => {
     setUserId(uuidv4());
+    setLastRotatedAt(new Date());
+    if (isStagingEnv && typeof window !== 'undefined') {
+      setAppIconUrl(`${window.location.origin}/appicon-staging.svg`);
+    }
   }, []);
 
   useEffect(() => {
     return scheduleSessionRefresh(() => {
+      tokenRequestRef.current.invalidate();
       setToken(null);
       setUserId(uuidv4());
+      setLastRotatedAt(new Date());
+      setRotationCount(c => c + 1);
     });
   }, []);
 
@@ -292,7 +309,7 @@ function Playground() {
       setToken(t || null);
     });
     return () => {
-      tracker.next();
+      tracker.invalidate();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, universalLink]);
@@ -338,7 +355,7 @@ function Playground() {
           <Image
             width={80}
             height={30}
-            src="/self.svg"
+            src={isStagingEnv ? '/self-staging.svg' : '/self.svg'}
             alt="Self Logo"
             className="h-[30px] w-[80px]"
           />
@@ -347,6 +364,14 @@ function Playground() {
           <span className="h-[36px] px-[16px] pt-[10px] pb-[14px] text-[14px] font-medium text-white bg-black rounded-[5px] flex items-center justify-center">
             Playground
           </span>
+          {isStagingEnv && (
+            <span
+              className="h-[36px] px-[10px] text-[12px] font-bold tracking-[0.5px] uppercase text-[#92400e] bg-[#fef3c7] border border-[#f59e0b] rounded-[5px] flex items-center justify-center"
+              title="Staging environment — does not produce live credentials"
+            >
+              Staging
+            </span>
+          )}
           <a
             href="https://docs.self.xyz/use-self/quickstart"
             target="_blank"
@@ -421,8 +446,8 @@ function Playground() {
               label="Test Application Icon"
               tooltip="Icon displayed alongside your app name"
             />
-            <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-[6px] flex gap-[12px] items-end overflow-clip pb-[20px] pl-[20px] pt-[50px] relative">
-              <div className="flex-1 flex flex-col gap-[12px] items-start pr-[30px] max-w-[220px]">
+            <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-[6px] flex gap-[12px] items-end overflow-clip pb-[20px] pl-[20px] pt-[30px] sm:pt-[50px] relative min-h-[220px]">
+              <div className="flex-1 flex flex-col gap-[12px] items-start pr-[140px] sm:pr-[30px] sm:max-w-[220px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={appIconUrl}
@@ -451,7 +476,7 @@ function Playground() {
                 alt="Phone mockup preview"
                 width={968}
                 height={784}
-                className="absolute right-0 bottom-0 h-full w-auto object-contain"
+                className="absolute right-0 bottom-0 h-full w-[180px] sm:w-auto object-contain object-right-bottom pointer-events-none"
               />
             </div>
           </div>
@@ -616,6 +641,14 @@ function Playground() {
 
           {/* QR Code Area */}
           <div className="flex-1 flex flex-col items-center justify-center w-full">
+            {isStagingEnv && (
+              <span
+                className="mt-[20px] mb-[16px] md:mt-0 h-[28px] px-[10px] text-[12px] font-bold tracking-[0.5px] uppercase text-[#92400e] bg-[#fef3c7] border border-[#f59e0b] rounded-[5px] inline-flex items-center justify-center"
+                title="Staging environment — does not produce live credentials"
+              >
+                Staging
+              </span>
+            )}
             {selfApp ? (
               <>
                 <SelfQRcodeWrapper
@@ -664,6 +697,12 @@ function Playground() {
           <div className="flex flex-col gap-[10px] items-center shrink-0">
             <span className="text-[12px] text-[#94a3b8] font-ibm-mono font-medium text-center">
               User ID: {userId.substring(0, 8)}...
+            </span>
+            <span className="text-[11px] text-[#94a3b8] font-ibm-mono text-center">
+              Rotations: {rotationCount}
+              {lastRotatedAt
+                ? ` · last ${lastRotatedAt.toLocaleTimeString()}`
+                : ''}
             </span>
             <div className="bg-[#94a3b8] px-[6px] py-[4px] rounded-[4px]">
               <span className="text-[12px] font-medium text-white text-center">
