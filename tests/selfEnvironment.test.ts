@@ -63,7 +63,7 @@ describe('getSelfEnvironmentConfig', () => {
     const config = getSelfEnvironmentConfig('staging');
 
     expect(config).toMatchObject({
-      defaultAppName: 'Self Playground (Staging)',
+      defaultAppName: 'Self Playground',
       metadataTitle: 'Self Playground (Staging)',
       metadataDescription: 'Self Playground (Staging)',
       verifyEndpoint: 'https://playground.staging.self.xyz/api/verify',
@@ -94,7 +94,7 @@ describe('getSelfEnvironmentConfig', () => {
     );
 
     expect(config).toMatchObject({
-      defaultAppName: 'Self Playground (Staging)',
+      defaultAppName: 'Self Playground',
       metadataTitle: 'Self Playground (Staging)',
       metadataDescription: 'Self Playground (Staging)',
       verifyEndpoint: 'https://override.example/api/verify',
