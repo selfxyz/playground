@@ -13,7 +13,7 @@ type SelfEnvironmentConfig = {
 };
 
 const STAGING_CONFIG: SelfEnvironmentConfig = {
-  defaultAppName: 'Self Playground',
+  defaultAppName: 'Self Playground (Staging)',
   metadataTitle: 'Self Playground (Staging)',
   metadataDescription: 'Self Playground (Staging)',
   verifyEndpoint: 'https://playground.staging.self.xyz/api/verify',

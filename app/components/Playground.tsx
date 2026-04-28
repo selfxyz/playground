@@ -67,6 +67,9 @@ function Playground() {
 
   useEffect(() => {
     setUserId(uuidv4());
+    if (isStagingEnv && typeof window !== 'undefined') {
+      setAppIconUrl(`${window.location.origin}/appicon-staging.svg`);
+    }
   }, []);
 
   const [disclosures, setDisclosures] = useState<SelfAppDisclosureConfig>({
@@ -621,10 +624,12 @@ function Playground() {
           {/* QR Code Area */}
           <div className="flex-1 flex flex-col items-center justify-center w-full">
             {isStagingEnv && (
-              <div className="mb-[16px] px-[12px] py-[6px] bg-[#fef3c7] border border-[#f59e0b] rounded-[5px] text-[12px] font-medium text-[#92400e] text-center max-w-[320px]">
-                Test verification — does not produce live credentials. Use a
-                mock passport in the Self app.
-              </div>
+              <span
+                className="mb-[16px] h-[28px] px-[10px] text-[12px] font-bold tracking-[0.5px] uppercase text-[#92400e] bg-[#fef3c7] border border-[#f59e0b] rounded-[5px] inline-flex items-center justify-center"
+                title="Staging environment — does not produce live credentials"
+              >
+                Staging
+              </span>
             )}
             {selfApp ? (
               <>
