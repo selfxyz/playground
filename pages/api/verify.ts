@@ -1,9 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import type { SelfAppDisclosureConfig } from '@selfxyz/common';
-import { AllIds, countryCodes, SelfBackendVerifier } from '@selfxyz/core';
+import { AllIds, SelfBackendVerifier } from '@selfxyz/core';
 
 import { createConfigStore } from '@/lib/configStore';
+import {
+  applyDisclosureFilter,
+  mapExcludedCountriesToCodes,
+} from '@/lib/disclosure';
+import { getSelfEnvironmentConfig } from '@/lib/selfEnvironment';
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,11 +26,15 @@ export default async function handler(
       }
 
       const configStore = createConfigStore();
+      const environmentConfig = getSelfEnvironmentConfig(
+        process.env.SELF_ENV,
+        process.env.SELF_VERIFY_ENDPOINT_OVERRIDE,
+      );
 
       const selfBackendVerifier = new SelfBackendVerifier(
         'self-playground',
-        'https://playground.self.xyz/api/verify',
-        false,
+        environmentConfig.verifyEndpoint,
+        environmentConfig.mockPassport,
         AllIds,
         configStore,
         'uuid',
@@ -70,29 +79,10 @@ export default async function handler(
       )) as unknown as SelfAppDisclosureConfig;
 
       if (result.isValidDetails.isValid) {
-        const filteredSubject = { ...result.discloseOutput };
-
-        if (!saveOptions.issuing_state && filteredSubject) {
-          filteredSubject.issuingState = 'Not disclosed';
-        }
-        if (!saveOptions.name && filteredSubject) {
-          filteredSubject.name = 'Not disclosed';
-        }
-        if (!saveOptions.nationality && filteredSubject) {
-          filteredSubject.nationality = 'Not disclosed';
-        }
-        if (!saveOptions.date_of_birth && filteredSubject) {
-          filteredSubject.dateOfBirth = 'Not disclosed';
-        }
-        if (!saveOptions.passport_number && filteredSubject) {
-          filteredSubject.idNumber = 'Not disclosed';
-        }
-        if (!saveOptions.gender && filteredSubject) {
-          filteredSubject.gender = 'Not disclosed';
-        }
-        if (!saveOptions.expiry_date && filteredSubject) {
-          filteredSubject.expiryDate = 'Not disclosed';
-        }
+        const filteredSubject = applyDisclosureFilter(
+          result.discloseOutput,
+          saveOptions,
+        );
 
         res.status(200).json({
           status: 'success',
@@ -101,13 +91,8 @@ export default async function handler(
           verificationOptions: {
             minimumAge: saveOptions.minimumAge,
             ofac: saveOptions.ofac,
-            excludedCountries: saveOptions.excludedCountries?.map(
-              countryName => {
-                const entry = Object.entries(countryCodes).find(
-                  ([_, name]) => name === countryName,
-                );
-                return entry ? entry[0] : countryName;
-              },
+            excludedCountries: mapExcludedCountriesToCodes(
+              saveOptions.excludedCountries,
             ),
           },
         });

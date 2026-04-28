@@ -17,6 +17,9 @@ import {
   SelfAppBuilder,
 } from '@selfxyz/sdk-common';
 
+import { DEFAULT_ICON_URL, sanitizeIconUrl } from '@/lib/iconUrl';
+import { getSelfEnvironmentConfig } from '@/lib/selfEnvironment';
+
 import CircleCheckbox from './CircleCheckbox';
 import SectionLabel from './SectionLabel';
 
@@ -30,21 +33,10 @@ const SelfDeepLinkButton = dynamic(
   { ssr: false },
 );
 
-const DEFAULT_ICON_URL =
-  'https://image2url.com/r2/default/images/1772123009674-14365df5-cc03-433d-9c21-814d43ad2fb8.png';
-
-// Only allow http(s) URLs into <img src> / QR payload to block javascript: and data: vectors (CodeQL).
-function sanitizeIconUrl(candidate: string): string {
-  try {
-    const parsed = new URL(candidate);
-    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
-      return parsed.toString();
-    }
-  } catch {
-    // fall through
-  }
-  return DEFAULT_ICON_URL;
-}
+const environmentConfig = getSelfEnvironmentConfig(
+  process.env.NEXT_PUBLIC_SELF_ENV,
+  process.env.NEXT_PUBLIC_SELF_VERIFY_ENDPOINT_OVERRIDE,
+);
 
 function Playground() {
   const [userId, setUserId] = useState<string | null>(null);
@@ -52,7 +44,7 @@ function Playground() {
   const [universalLink, setUniversalLink] = useState('');
   const [token, setToken] = useState<string | null>(null);
   const [isFetchingToken, setIsFetchingToken] = useState(false);
-  const [appName, setAppName] = useState('Self Playground');
+  const [appName, setAppName] = useState(environmentConfig.defaultAppName);
   const [appIconUrl, setAppIconUrl] = useState(DEFAULT_ICON_URL);
   const [previewTab, setPreviewTab] = useState<
     'desktop' | 'mobile' | 'alternates' | 'code'
@@ -230,8 +222,8 @@ function Playground() {
     const app = new SelfAppBuilder({
       appName: appName,
       scope: 'self-playground',
-      endpoint: 'https://playground.self.xyz/api/verify',
-      endpointType: 'https',
+      endpoint: environmentConfig.verifyEndpoint,
+      endpointType: environmentConfig.endpointType,
       logoBase64: appIconUrl,
       userId,
       disclosures: {
@@ -243,7 +235,7 @@ function Playground() {
       },
       version: 2,
       userDefinedData: 'hello from the playground',
-      devMode: false,
+      devMode: environmentConfig.devMode,
     } as Partial<SelfApp>).build();
     return app;
   }, [userId, disclosures, appName, appIconUrl]);
