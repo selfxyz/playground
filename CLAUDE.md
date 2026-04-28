@@ -11,8 +11,7 @@ Self Playground — an interactive demo for the Self identity verification proto
 - `yarn dev` — Start dev server (clears `.next` cache first)
 - `yarn build` — Production build
 - `yarn lint` — ESLint
-
-No test framework is configured.
+- `yarn test` — Vitest (unit tests for `lib/*.ts`)
 
 ## Tech Stack
 
