@@ -88,6 +88,22 @@ describe('applyDisclosureFilter', () => {
     ).toBeUndefined();
     expect(applyDisclosureFilter(null, allDisclosuresEnabled)).toBeNull();
   });
+
+  it('does not fabricate redacted fields when the subject is nullish and every flag is false', () => {
+    const allFlagsFalse: SelfAppDisclosureConfig = {
+      ...allDisclosuresEnabled,
+      issuing_state: false,
+      name: false,
+      nationality: false,
+      date_of_birth: false,
+      passport_number: false,
+      gender: false,
+      expiry_date: false,
+    };
+
+    expect(applyDisclosureFilter(undefined, allFlagsFalse)).toBeUndefined();
+    expect(applyDisclosureFilter(null, allFlagsFalse)).toBeNull();
+  });
 });
 
 describe('mapExcludedCountriesToCodes', () => {
@@ -99,5 +115,9 @@ describe('mapExcludedCountriesToCodes', () => {
 
   it('returns undefined when there are no excluded countries', () => {
     expect(mapExcludedCountriesToCodes(undefined)).toBeUndefined();
+  });
+
+  it('returns an empty array when given an empty array', () => {
+    expect(mapExcludedCountriesToCodes([])).toEqual([]);
   });
 });
