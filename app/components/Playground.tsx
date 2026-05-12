@@ -81,7 +81,7 @@ function Playground() {
     setUserId(uuidv4());
     setLastRotatedAt(new Date());
     if (isStagingEnv && typeof window !== 'undefined') {
-      setAppIconUrl(`${window.location.origin}/appicon-staging.svg`);
+      setAppIconUrl(`${window.location.origin}/appicon-staging.png`);
     }
   }, []);
 
