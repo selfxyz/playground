@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@selfxyz/core": "^1.2.0-beta.1",
-    "@selfxyz/qrcode": "latest",
+    "@selfxyz/qrcode": "1.0.24",
     "@selfxyz/sdk-common": "latest",
     "@upstash/redis": "1.34.0",
     "next": "15.5.9",

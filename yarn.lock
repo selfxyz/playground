@@ -1151,12 +1151,12 @@
     snarkjs "^0.7.4"
     uuid "^11.1.0"
 
-"@selfxyz/qrcode@latest":
-  version "1.0.21"
-  resolved "https://registry.yarnpkg.com/@selfxyz/qrcode/-/qrcode-1.0.21.tgz#ff33f3ca64180d79844689d48a43484b5ec5a744"
-  integrity sha512-qhLhPiT0wC8IV1kYTY1uaTvPNYOf7pJ3t/96cCpktekpki+WXmffWImDSDmmLULvBKkFd/D/MjfmubJNO/K+kQ==
+"@selfxyz/qrcode@1.0.24":
+  version "1.0.24"
+  resolved "https://registry.yarnpkg.com/@selfxyz/qrcode/-/qrcode-1.0.24.tgz#b91c6ba34ea4a1664e47e8ad2eb1791f2a34a9b5"
+  integrity sha512-6MVKP+jO36C+vGzOdmgXDhx6/rtJfEMB9YGAoszSz5Vguewixgd3Sz4qlK9zYytfDNYLDcqSx4GALp7BoN5Yjw==
   dependencies:
-    "@selfxyz/sdk-common" "workspace:^"
+    "@selfxyz/sdk-common" "^1.0.0"
     js-sha1 "^0.7.0"
     js-sha256 "^0.11.0"
     js-sha512 "^0.9.0"
@@ -1168,6 +1168,10 @@
     socket.io-client "^4.8.3"
     uuid "^11.1.0"
 
+"@selfxyz/sdk-common@^1.0.0":
+  version "0.0.0"
+  uid ""
+
 "@selfxyz/sdk-common@latest":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@selfxyz/sdk-common/-/sdk-common-1.0.0.tgz#34a9f88af2a91ada2d68943db5dd7e4ed039f2af"
@@ -1176,10 +1180,6 @@
     uuid "^13.0.0"
 
 "@selfxyz/sdk-common@link:../self/sdk/sdk-common":
-  version "0.0.0"
-  uid ""
-
-"@selfxyz/sdk-common@workspace:^":
   version "0.0.0"
   uid ""
 
